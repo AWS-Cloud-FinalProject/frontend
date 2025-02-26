@@ -1,0 +1,117 @@
+@charset "UTF-8";
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes moving {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+@keyframes rightMoving {
+  0% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+@keyframes txtUpAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.calendar-bg {
+  min-height: 100vh;
+}
+.calendar-bg .title-wrap {
+  margin-top: 30px;
+  height: 10vh;
+}
+.calendar-bg .title-wrap .title {
+  font-weight: bold;
+  font-size: 30px;
+}
+.calendar-bg .title-wrap .btn-wrap {
+  margin-top: 30px;
+}
+.calendar-bg .title-wrap .btn-wrap button {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  margin: 0 20px;
+  border-radius: 30%;
+}
+.calendar-bg .calendar {
+  width: 100%;
+  height: 90vh;
+  margin-top: 30px;
+}
+.calendar-bg .calendar .thead {
+  background-color: #e5e5e5;
+}
+.calendar-bg .calendar .tr {
+  flex: 1;
+  width: 100%;
+}
+.calendar-bg .calendar .tr .th {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.calendar-bg .calendar .tr .td {
+  justify-content: flex-start;
+  padding: 15px;
+  align-items: flex-start;
+}
+.calendar-bg .calendar .tr .td, .calendar-bg .calendar .tr .th {
+  display: flex;
+  height: 100%; /* 셀의 높이를 부모 요소에 맞춤 */
+  flex: 1;
+  border: 1px solid #a4a4a4;
+}
+.calendar-bg .calendar .tr .td.text-gray, .calendar-bg .calendar .tr .th.text-gray {
+  color: gray;
+}
+.calendar-bg .calendar .tr .td.font-bold, .calendar-bg .calendar .tr .th.font-bold {
+  font-weight: bold;
+}
+.calendar-bg .calendar .tr .td:first-child, .calendar-bg .calendar .tr .th:first-child {
+  color: #b64747;
+}
+.calendar-bg .calendar .tr .td:first-child.text-gray, .calendar-bg .calendar .tr .th:first-child.text-gray {
+  color: #c27d7d;
+}
+.calendar-bg .calendar .tr .td:last-child, .calendar-bg .calendar .tr .th:last-child {
+  color: #3e3ec1;
+}
+.calendar-bg .calendar .tr .td:last-child.text-gray, .calendar-bg .calendar .tr .th:last-child.text-gray {
+  color: #7a7ab6;
+}
+
+/*# sourceMappingURL=common.css.map */

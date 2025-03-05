@@ -13,105 +13,364 @@
   justify-content: center;
 }
 
-@keyframes moving {
-  0% {
-    transform: translateY(5px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(5px);
-  }
-}
-@keyframes rightMoving {
-  0% {
-    transform: translateX(5px);
-  }
-  50% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(5px);
-  }
-}
-@keyframes txtUpAnimation {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
-.calendar-bg {
+.page {
   min-height: 100vh;
 }
-.calendar-bg .title-wrap {
-  margin-top: 30px;
+.page .title-wrap {
+  margin-top: 60px;
   height: 10vh;
+  z-index: 0;
 }
-.calendar-bg .title-wrap .title {
+.page .title-wrap .title {
   font-weight: bold;
   font-size: 30px;
 }
-.calendar-bg .title-wrap .btn-wrap {
-  margin-top: 30px;
-}
-.calendar-bg .title-wrap .btn-wrap button {
+.page .title-wrap .monthBtn {
   padding: 10px;
   background-color: black;
   color: white;
   margin: 0 20px;
   border-radius: 30%;
 }
-.calendar-bg .calendar {
+.page .calendar {
   width: 100%;
   height: 90vh;
   margin-top: 30px;
+  z-index: 0;
 }
-.calendar-bg .calendar .thead {
+.page .calendar .thead {
   background-color: #e5e5e5;
 }
-.calendar-bg .calendar .tr {
+.page .calendar .tr {
   flex: 1;
   width: 100%;
 }
-.calendar-bg .calendar .tr .th {
+.page .calendar .tr .th {
   text-align: center;
   justify-content: center;
   align-items: center;
   padding: 5px;
 }
-.calendar-bg .calendar .tr .td {
+.page .calendar .tr .td {
   justify-content: flex-start;
   padding: 15px;
   align-items: flex-start;
 }
-.calendar-bg .calendar .tr .td, .calendar-bg .calendar .tr .th {
+.page .calendar .tr .td, .page .calendar .tr .th {
   display: flex;
   height: 100%; /* 셀의 높이를 부모 요소에 맞춤 */
   flex: 1;
   border: 1px solid #a4a4a4;
 }
-.calendar-bg .calendar .tr .td.text-gray, .calendar-bg .calendar .tr .th.text-gray {
+.page .calendar .tr .td.text-gray, .page .calendar .tr .th.text-gray {
   color: gray;
 }
-.calendar-bg .calendar .tr .td.font-bold, .calendar-bg .calendar .tr .th.font-bold {
+.page .calendar .tr .td.font-bold, .page .calendar .tr .th.font-bold {
   font-weight: bold;
 }
-.calendar-bg .calendar .tr .td:first-child, .calendar-bg .calendar .tr .th:first-child {
+.page .calendar .tr .td:first-child, .page .calendar .tr .th:first-child {
   color: #b64747;
 }
-.calendar-bg .calendar .tr .td:first-child.text-gray, .calendar-bg .calendar .tr .th:first-child.text-gray {
+.page .calendar .tr .td:first-child.text-gray, .page .calendar .tr .th:first-child.text-gray {
   color: #c27d7d;
 }
-.calendar-bg .calendar .tr .td:last-child, .calendar-bg .calendar .tr .th:last-child {
+.page .calendar .tr .td:last-child, .page .calendar .tr .th:last-child {
   color: #3e3ec1;
 }
-.calendar-bg .calendar .tr .td:last-child.text-gray, .calendar-bg .calendar .tr .th:last-child.text-gray {
+.page .calendar .tr .td:last-child.text-gray, .page .calendar .tr .th:last-child.text-gray {
   color: #7a7ab6;
+}
+.page .kanban-board {
+  margin: 80px 0;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 0;
+  align-items: flex-start;
+}
+.page .kanban-board .status {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 20%;
+  min-height: 90vh;
+  margin-right: 20px;
+  justify-content: flex-start;
+  border-radius: 1rem;
+}
+.page .kanban-board .status:last-child {
+  margin-right: 0;
+}
+.page .kanban-board .status .title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  width: 100%;
+  height: 50px;
+  padding: 0 10px;
+  color: white;
+  margin-bottom: 30px;
+}
+.page .kanban-board .status .title div {
+  cursor: pointer;
+}
+.page .kanban-board .status.todo > .title {
+  background-color: #5050bd;
+}
+.page .kanban-board .status.inProgress > .title {
+  background-color: #c27d7d;
+}
+.page .kanban-board .status.review > .title {
+  background-color: #8560d3;
+}
+.page .kanban-board .status.done > .title {
+  background-color: #69bb69;
+}
+.page .kanban-board .status .list {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #f5f5f5;
+  width: 90%;
+  border-radius: 0.5em;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+  cursor: pointer;
+}
+.page .kanban-board .status .list p {
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+  font-size: 20px;
+}
+
+.input-form span {
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+.input-form input {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 5%;
+}
+
+.box {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 100px 50px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.box img {
+  width: 100px;
+}
+.box .login-btn {
+  background-color: #3e3ec1;
+  padding: 35px 10px;
+  color: white;
+  border-radius: 5%;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+.box .login-btn:hover {
+  background-color: #2121da;
+  transition: 0.3s;
+}
+.box .go-sign-up {
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.box .go-sign-up:hover {
+  color: #3e3ec1;
+  transition: 0.3s;
+}
+.box .sign-up-btn {
+  margin-top: 30px;
+  background-color: #3e3ec1;
+  padding: 20px 50px;
+  color: white;
+  border-radius: 5%;
+}
+.box .incorrect-pw {
+  color: red;
+  font-size: 13px;
+}
+
+.navigator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  height: 60px;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.navigator .site-map {
+  position: absolute;
+  width: 300px;
+  top: 0;
+  left: -300px;
+  height: 100vh;
+  transition: 0.3s;
+  background-color: white;
+  z-index: 2;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.navigator .site-map.on {
+  transform: translateX(300px);
+  transition: 0.3s;
+}
+.navigator .site-map div {
+  width: 90%;
+  text-align: center;
+  padding: 100px 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 5%;
+  cursor: pointer;
+}
+.navigator .site-map div:first-child {
+  margin-bottom: 30px;
+}
+.navigator .site-map div svg.active {
+  fill: #3e3ec1;
+}
+.navigator .site-map div span.active {
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+}
+.navigator .site-map-btn {
+  transition: 0.3s;
+}
+.navigator .site-map-btn.on {
+  transform: translateX(300px);
+  transition: 0.3s;
+}
+.navigator svg {
+  width: 50px;
+  cursor: pointer;
+}
+.navigator .drop-down-menu {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: absolute;
+  right: 10px;
+  top: 45px;
+  border-radius: 5%;
+}
+.navigator .drop-down-menu .row {
+  padding: 15px 10px;
+  cursor: pointer;
+}
+.navigator .drop-down-menu .row:first-child {
+  border-bottom: 1px solid gray;
+}
+.navigator .drop-down-menu .row.red svg {
+  fill: #c94242;
+}
+.navigator .drop-down-menu .row.red span {
+  color: #c94242;
+}
+
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+.modal-bg .modal {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 50%;
+  height: 500px;
+  position: absolute;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+}
+.modal-bg .modal .exit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.modal-bg .modal.user-edit-modal .row {
+  width: 100%;
+}
+.modal-bg .modal.user-edit-modal .row div {
+  width: 40%;
+  padding: 70px 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 0 10px;
+  border-radius: 5%;
+  cursor: pointer;
+}
+.modal-bg .modal.user-edit-modal .row div p {
+  font-size: 20px;
+}
+.modal-bg .modal.user-edit-modal .row div:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 30px;
+}
+.modal-bg .modal.user-edit-modal .change-pw p {
+  font-size: 12px;
+  color: #c94242;
+}
+.modal-bg .modal.user-edit-modal .withdraw .withdraw-check {
+  margin-top: 20px;
+}
+.modal-bg .modal.user-edit-modal .withdraw .withdraw-check input {
+  box-shadow: none;
+  scale: 1.5;
+  margin-right: 10px;
+}
+.modal-bg .modal.user-edit-modal .change-pw-btn, .modal-bg .modal.user-edit-modal .withdraw-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3e3ec1;
+  color: white;
+  border-radius: 5%;
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.modal-bg .modal.user-edit-modal .change-pw-btn:hover, .modal-bg .modal.user-edit-modal .withdraw-btn:hover {
+  background-color: #5050bd;
+  transition: 0.3s;
+}
+.modal-bg .modal.create-todo-modal {
+  height: 300px;
+}
+.modal-bg .modal.create-todo-modal input {
+  width: 80%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px 10px;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
+.modal-bg .modal.create-todo-modal textarea {
+  width: 80%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 5px 10px;
+  height: 100px;
+  border: none;
+  resize: none;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+.modal-bg .modal.create-todo-modal textarea:focus {
+  outline: none;
+}
+.modal-bg .modal.create-todo-modal .create-todo-btn {
+  margin-top: 30px;
+  background-color: #3e3ec1;
+  color: white;
+  padding: 10px 15px;
+  font-size: 17px;
+  border-radius: 1em;
 }
 
 /*# sourceMappingURL=common.css.map */

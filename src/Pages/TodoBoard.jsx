@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FaPlus } from 'react-icons/fa6'
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { IoMdClose } from 'react-icons/io'
 import Navigator from 'components/Navigator'
 import CreateTodoModal from 'components/CreateTodoModal'
-import { getTodo } from 'js/api'
-
+import { getTodo, deleteTodo } from 'js/api'
 
 const TodoBoard = () => {
   const [modal, setModal] = useState(false)
@@ -43,19 +43,19 @@ const TodoBoard = () => {
     if (!modal) getTodoList()
   }, [modal])
 
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    const animation = requestAnimationFrame(() => setEnabled(true));
+    const animation = requestAnimationFrame(() => setEnabled(true))
 
     return () => {
-      cancelAnimationFrame(animation);
-      setEnabled(false);
-    };
-  }, []);
+      cancelAnimationFrame(animation)
+      setEnabled(false)
+    }
+  }, [])
 
   if (!enabled) {
-    return null;
+    return null
   }
 
   const onDragEnd = (result) => {
@@ -69,7 +69,6 @@ const TodoBoard = () => {
     // 같은 컬럼 내에서 순서만 변경하는 경우
     if (sourceColumn === destinationColumn) {
       const updatedTasks = Array.from(tasks[sourceColumn])
-
       const [movedItem] = updatedTasks.splice(source.index, 1) // 이동할 항목 제거
       updatedTasks.splice(destination.index, 0, movedItem) // 새로운 위치에 항목 삽입
 
@@ -78,13 +77,13 @@ const TodoBoard = () => {
         [sourceColumn]: updatedTasks, // 해당 컬럼 내에서만 순서 변경
       }))
     }
-    // 다른 컬럼으로 이동하는 경우는 기존 로직대로 처리
+    // 다른 컬럼으로 이동하는 경우
     else {
       const sourceTasks = Array.from(tasks[sourceColumn])
       const destinationTasks = Array.from(tasks[destinationColumn])
 
-      const [movedItem] = sourceTasks.splice(source.index, 1)
-      destinationTasks.splice(destination.index, 0, movedItem)
+      const [movedItem] = sourceTasks.splice(source.index, 1) // 이동할 항목 제거
+      destinationTasks.splice(destination.index, 0, movedItem) // 새로운 위치에 항목 삽입
 
       setTasks((prev) => ({
         ...prev,
@@ -99,62 +98,64 @@ const TodoBoard = () => {
       <div className="page column">
         <Navigator />
         <DragDropContext
-          onDragEnd={onDragEnd}
-          // 애니메이션 지속 시간 조정 (0.1초로 설정)
+          onDragEnd={onDragEnd} // `tasks`와 `setTasks`는 여기서 직접 사용
           dragHandleSelector="div"
           shouldRespectForcePress={true}
-          transitionDuration={0.1} // 애니메이션을 빠르게 설정
+          transitionDuration={0.2} // 빠른 애니메이션
         >
           <div className="kanban-board row">
             {Object.entries(tasks).length > 0 && Object.entries(tasks).map(([columnId, columnTasks]) => (
               <Droppable key={columnId} droppableId={columnId}>
-                {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    className={`column status ${columnId}`}
-                  >
-                    <div className="title">
-                      <span>{columnId.toUpperCase() === 'INPROGRESS' ?
-                        'IN-PROGRESS' : columnId.toUpperCase() === 'TODO'
-                          ? 'TO-DO' : columnId.toUpperCase()}</span>
-                      <div onClick={() => {
-                        setModal(true)
-                        setState(columnId)
-                      }}>
-                        <FaPlus />
+                {(provided) => {
+                  // columnTasks가 배열이 아닐 경우 빈 배열로 설정
+                  const safeColumnTasks = Array.isArray(columnTasks) ? columnTasks : []
+
+                  return (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className={`column status ${columnId}`}
+                    >
+                      <div className="title">
+                        <span>{columnId.toUpperCase() === 'INPROGRESS' ? 'IN-PROGRESS' : columnId.toUpperCase()}</span>
+                        <div onClick={() => {
+                          setModal(true)
+                          setState(columnId)
+                        }}>
+                          <FaPlus />
+                        </div>
                       </div>
-                    </div>
-                    {columnTasks.map(({ title, contents, todo_num }, idx) => (
-                      <Draggable key={`${columnId}-${title}-${idx}`} draggableId={`${columnId}-${title}-${idx}`}
-                                 index={idx}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className="list"
-                          >
-                            <div className="row list-top">
-                              <span className={`list-status ${columnId}`}>{columnId}</span>
-                              <div onClick={() => deleteTodoList(todo_num)}><IoMdClose size={20} /></div>
+                      {safeColumnTasks.map(({ title, contents, todo_num }, idx) => (
+                        <Draggable key={`${columnId}-${todo_num}`} draggableId={`${columnId}-${todo_num}`} index={idx}>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              className="list"
+                            >
+                              <div className="row list-top">
+                                <span className={`list-status ${columnId}`}>{columnId}</span>
+                                <div onClick={() => deleteTodoList(todo_num)}><IoMdClose size={20} /></div>
+                              </div>
+                              <p>{title}</p>
+                              <span>{contents}</span>
                             </div>
-                            <p>{title}</p>
-                            <span>{contents}</span>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder} {/* 드래그된 항목을 위한 공간 예약 */}
+                    </div>
+                  )
+                }}
               </Droppable>
             ))}
           </div>
         </DragDropContext>
       </div>
       {modal ? <CreateTodoModal setModal={setModal} state={state} /> : null}
-    </>)
+    </>
+  )
 }
 
 export default TodoBoard

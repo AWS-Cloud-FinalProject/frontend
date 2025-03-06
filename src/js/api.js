@@ -61,3 +61,11 @@ export const createTodo = async (data) => {
     return console.log(error)
   }
 }
+
+export const deleteTodo = async (todo_num) => {
+  try {
+    return await axios.delete(`/api/delete-todo/${todo_num}`, header())
+  } catch (error) {
+    return console.log(error)
+  }
+}

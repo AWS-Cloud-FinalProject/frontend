@@ -5,6 +5,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
+    "@hello-pangea/dnd": "^18.0.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
@@ -13,14 +14,10 @@
     "http-proxy-middleware": "^3.0.3",
     "prettier": "^3.5.2",
     "react": "^19.0.0",
-    "react-beautiful-dnd": "^13.1.1",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.2.0",
     "react-scripts": "5.0.1",
-    "react-spring": "^9.7.5",
     "universal-cookie": "^7.2.2",
     "web-vitals": "^2.1.4"
   },

@@ -11,11 +11,16 @@
     .title {
       font-weight: bold;
       font-size: 30px;
+
+      span {
+        font-weight: bold;
+        color: #5050bd;
+      }
     }
 
     .monthBtn {
       padding: 10px;
-      background-color: black;
+      background-color: #5050bd;
       color: white;
       margin: 0 20px;
       border-radius: 30%;
@@ -36,6 +41,16 @@
       flex: 1;
       width: 100%;
 
+      &.week {
+        .th {
+          cursor: default;
+
+          &:hover {
+            background-color: white;
+          }
+        }
+      }
+
       .th {
         text-align: center;
         justify-content: center;
@@ -54,13 +69,52 @@
         height: 100%; /* 셀의 높이를 부모 요소에 맞춤 */
         flex: 1;
         border: 1px solid #a4a4a4;
+        cursor: pointer;
 
-        &.text-gray {
-          color: gray;
+        .day-with-emotion {
+          justify-content: space-between;
+          width: 100%;
+
+          .emotion-img {
+            width: 20px;
+          }
         }
 
-        &.font-bold {
-          font-weight: bold;
+        .preview-title {
+          position: absolute;
+          width: 100%;
+          background-color: #5050bd;
+          color: white;
+          padding: 3px;
+          left: 0;
+          bottom: 0;
+          text-overflow: ellipsis;
+          font-size: 12px;
+
+        }
+
+        &.prev-or-next {
+          color: gray;
+
+          .day-with-emotion {
+            img {
+              opacity: 0.5;
+            }
+          }
+
+          &:hover {
+            background-color: #f8f8ff;
+          }
+        }
+
+        &.today {
+          span {
+            font-weight: bold;
+            background-color: #5050bd;
+            color: white;
+            padding: 0 8px;
+            border-radius: 2rem;
+          }
         }
 
         &:first-child {
@@ -78,6 +132,10 @@
             color: #7a7ab6;
           }
         }
+
+        &:hover {
+          background-color: #eeeeff;
+        }
       }
     }
   }
@@ -92,7 +150,7 @@
     .status {
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       width: 20%;
-      min-height: 90vh;
+      min-height: 70vh;
       margin-right: 20px;
       justify-content: flex-start;
       border-radius: 1rem;
@@ -119,6 +177,10 @@
 
         div {
           cursor: pointer;
+
+          svg {
+            fill: gray;
+          }
         }
       }
 
@@ -150,23 +212,28 @@
 
         .list-top {
           justify-content: space-between;
-          .list-status {
-            padding: 5px;
-            font-size: 12px;
-            color: white;
-            border-radius: 1em;
-            &.todo {
-              background-color: #5050bd;
-            }
-            &.inProgress {
-              background-color: #c27d7d;
-            }
-            &.review {
-              background-color: #8560d3;
-            }
-            &.done {
-              background-color: #69bb69;
-            }
+        }
+
+        .list-status {
+          padding: 5px;
+          font-size: 12px;
+          color: white;
+          border-radius: 1em;
+
+          &.todo {
+            background-color: #5050bd;
+          }
+
+          &.inProgress {
+            background-color: #c27d7d;
+          }
+
+          &.review {
+            background-color: #8560d3;
+          }
+
+          &.done {
+            background-color: #69bb69;
           }
         }
 
@@ -175,6 +242,39 @@
           font-size: 20px;
         }
 
+        &.new-task-form, &.edit-task-form {
+          cursor: default;
+          height: 210px;
+          position: relative;
+
+          input {
+            margin-top: 15px;
+            width: 100%;
+            padding: 20px 10px;
+          }
+
+          textarea {
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            resize: none;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: gray;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 1em;
+            font-size: 12px;
+          }
+        }
       }
     }
   }
@@ -421,39 +521,139 @@
       }
     }
 
-    &.create-todo-modal {
-      height: 300px;
+    &.diary-modal {
+      width: 70%;
+      height: 600px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      justify-content: flex-start;
+      padding: 30px 60px;
 
-      input {
-        width: 80%;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        padding: 20px 10px;
-        border-top-left-radius: 1em;
-        border-top-right-radius: 1em;
-      }
+      .diary-top {
+        width: 100%;
+        padding: 15px 0;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        margin-bottom: 30px;
 
-      textarea {
-        width: 80%;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        padding: 5px 10px;
-        height: 100px;
-        border: none;
-        resize: none;
-        border-bottom-left-radius: 1em;
-        border-bottom-right-radius: 1em;
+        .title {
+          font-family: $boldFont;
+          font-size: 24px;
+        }
 
-        &:focus {
-          outline: none;
+        .emotion {
+          line-height: 30px;
+
+          img {
+            margin-left: 10px;
+            width: 30px;
+          }
         }
       }
 
-      .create-todo-btn {
-        margin-top: 30px;
-        background-color: #3e3ec1;
-        color: white;
-        padding: 10px 15px;
-        font-size: 17px;
-        border-radius: 1em;
+      .diary-photo {
+        max-width: 90%;
+      }
+
+      .contents {
+        margin-top: 20px;
+        width: 90%;
+      }
+
+      .lets-add-diary {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        svg {
+          fill: gray;
+        }
+
+        p {
+          margin-top: 30px;
+          color: gray;
+        }
+      }
+
+      .create-diary {
+        width: 100%;
+
+        .create-diary-title {
+          width: 100%;
+          padding: 10px 20px;
+          font-size: 20px;
+          border-bottom: 1px solid gray;
+        }
+
+        .create-diary-photo {
+          width: 100%;
+          padding: 10px 20px;
+          border-bottom: 1px solid gray;
+          align-items: flex-start;
+
+          .input-photo {
+            .photo-file-label {
+              background-color: #5050bd;
+              color: white;
+              padding: 5px 10px;
+              border-radius: 1em;
+              cursor: pointer;
+            }
+            p {
+              margin-left: 20px;
+              color: gray;
+              font-family: $thinFont;
+            }
+          }
+          .preview-photo {
+            width: 100%;
+            margin-top: 10px;
+          }
+        }
+
+        #photo {
+          display: none;
+        }
+
+        .create-diary-emotion {
+          width: 100%;
+          padding: 10px 20px;
+          border-bottom: 1px solid gray;
+
+          img {
+            cursor: pointer;
+            width: 30px;
+            margin: 0 30px;
+            padding: 5px;
+
+            &.active {
+              background-color: #d2d2d2;
+              border-radius: 1em;
+            }
+          }
+        }
+
+        .create-diary-contents {
+          width: 100%;
+          margin: 10px 0;
+          padding: 10px 20px;
+          height: 300px;
+          //border: none;
+          resize: none;
+
+          &:focus {
+            outline: none;
+          }
+        }
+        .create-diary-btn {
+          background-color: #5050bd;
+          padding: 5px 15px;
+          color: white;
+          border-radius: 1em;
+          font-size: 16px;
+        }
       }
     }
   }

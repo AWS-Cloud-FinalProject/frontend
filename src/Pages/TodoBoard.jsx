@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react'
-// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
 import { FaPlus } from 'react-icons/fa6'
-import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { IoMdClose } from 'react-icons/io'
+import { MdOutlineModeEdit } from 'react-icons/md'
 import Navigator from 'components/Navigator'
-import CreateTodoModal from 'components/CreateTodoModal'
-import { getTodo, deleteTodo } from 'js/api'
+import { getTodo, deleteTodo, createTodo, editTodo } from 'js/api'
 
 const TodoBoard = () => {
-  const [modal, setModal] = useState(false)
+  const [create, setCreate] = useState(false)
+  const [edit, setEdit] = useState(false)
   const [state, setState] = useState('')
   const [tasks, setTasks] = useState({
     todo: [],
     inProgress: [],
     review: [],
     done: [],
+  })
+  const [createTask, setCreateTask] = useState({
+    title: '',
+    contents: '',
+  })
+  const [editTask, setEditTask] = useState({
+    todo_num: null,
+    todo_order: null,
+    status: '',
+    title: '',
+    contents: '',
   })
 
   let prevent = false
@@ -39,9 +50,43 @@ const TodoBoard = () => {
     }
   }
 
+  const createTodoFn = async () => {
+    if (createTask.title === '') return alert('할 일 제목을 입력해 주세요.')
+    else if (createTask.contents === '') return alert('할 일 내용을 입력해 주세요.')
+    else {
+      const order = tasks[state] === undefined ? 0 : tasks[state].length
+      const data = {
+        status: state,
+        title: createTask.title,
+        contents: createTask.contents,
+        todo_order: order,
+      }
+      const result = await createTodo(data)
+      if (typeof result === 'object' && result?.data?.message === 'Todo Create Successfully') {
+        setCreate(false)
+        setCreateTask({
+          title: '',
+          contents: '',
+        })
+        getTodoList()
+      }
+    }
+  }
+
+  const editTodoFn = async (opt, data) => {
+    if (opt === 'fullEdit') {
+      if (editTask.title === '') return alert('할 일 제목을 입력해 주세요.')
+      else if (editTask.contents === '') return alert('할 일 내용을 입력해 주세요.')
+    }
+    const result = await editTodo(opt === 'fullEdit' ? editTask : data)
+    if (typeof result === 'object' && result?.data?.message === 'Todo updated successfully') {
+      getTodoList()
+    }
+  }
+
   useEffect(() => {
-    if (!modal) getTodoList()
-  }, [modal])
+    getTodoList()
+  }, [])
 
   const [enabled, setEnabled] = useState(false)
 
@@ -58,7 +103,7 @@ const TodoBoard = () => {
     return null
   }
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { source, destination } = result
 
     if (!destination) return // 유효한 드롭 위치가 없으면 종료
@@ -76,6 +121,8 @@ const TodoBoard = () => {
         ...prev,
         [sourceColumn]: updatedTasks, // 해당 컬럼 내에서만 순서 변경
       }))
+
+      await editTodoFn('orderEdit', { ...movedItem, todo_order: destination.index, status: destinationColumn })
     }
     // 다른 컬럼으로 이동하는 경우
     else {
@@ -90,6 +137,8 @@ const TodoBoard = () => {
         [sourceColumn]: sourceTasks,
         [destinationColumn]: destinationTasks,
       }))
+
+      await editTodoFn('columnEdit', { ...movedItem, status: destinationColumn, todo_order: destination.index })
     }
   }
 
@@ -119,32 +168,71 @@ const TodoBoard = () => {
                       <div className="title">
                         <span>{columnId.toUpperCase() === 'INPROGRESS' ? 'IN-PROGRESS' : columnId.toUpperCase()}</span>
                         <div onClick={() => {
-                          setModal(true)
                           setState(columnId)
+                          setCreate(true)
                         }}>
                           <FaPlus />
                         </div>
                       </div>
-                      {safeColumnTasks.map(({ title, contents, todo_num }, idx) => (
+                      {safeColumnTasks.map(({ title, contents, todo_num, todo_order }, idx) => (
                         <Draggable key={`${columnId}-${todo_num}`} draggableId={`${columnId}-${todo_num}`} index={idx}>
                           {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              className="list"
-                            >
-                              <div className="row list-top">
+                            editTask.todo_num === todo_num && edit ? (
+                              <div className="list edit-task-form">
                                 <span className={`list-status ${columnId}`}>{columnId}</span>
-                                <div onClick={() => deleteTodoList(todo_num)}><IoMdClose size={20} /></div>
+                                <input
+                                  type="text"
+                                  value={editTask.title}
+                                  onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
+                                />
+                                <textarea
+                                  value={editTask.contents}
+                                  onChange={(e) => setEditTask({ ...editTask, contents: e.target.value })}
+                                />
+                                <button className="btn" onClick={() => editTodoFn('fullEdit')}>수정</button>
                               </div>
-                              <p>{title}</p>
-                              <span>{contents}</span>
-                            </div>
+                            ) : (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className="list"
+                              >
+                                <div className="row list-top">
+                                  <span className={`list-status ${columnId}`}>{columnId}</span>
+                                  <div className="row">
+                                    <MdOutlineModeEdit size={25} onClick={() => {
+                                      setEditTask({ todo_num, todo_order, title, contents, status: columnId })
+                                      setEdit(true)
+                                    }} />
+                                    <IoMdClose size={25} onClick={() => deleteTodoList(todo_num)} />
+                                  </div>
+                                </div>
+                                <p>{title}</p>
+                                <span>{contents}</span>
+                              </div>
+                            )
                           )}
                         </Draggable>
                       ))}
                       {provided.placeholder} {/* 드래그된 항목을 위한 공간 예약 */}
+                      {state === columnId && create && (
+                        <div className="new-task-form list">
+                          <span className={`list-status ${columnId}`}>{columnId}</span>
+                          <input
+                            type="text"
+                            placeholder="할 일 제목"
+                            value={createTask.title}
+                            onChange={(e) => setCreateTask({ ...createTask, title: e.target.value })}
+                          />
+                          <textarea
+                            placeholder="할 일 내용"
+                            value={createTask.contents}
+                            onChange={(e) => setCreateTask({ ...createTask, contents: e.target.value })}
+                          />
+                          <button className="btn" onClick={() => createTodoFn()}>할 일 생성</button>
+                        </div>
+                      )}
                     </div>
                   )
                 }}
@@ -153,7 +241,6 @@ const TodoBoard = () => {
           </div>
         </DragDropContext>
       </div>
-      {modal ? <CreateTodoModal setModal={setModal} state={state} /> : null}
     </>
   )
 }

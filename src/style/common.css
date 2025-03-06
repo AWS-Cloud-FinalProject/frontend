@@ -25,9 +25,13 @@
   font-weight: bold;
   font-size: 30px;
 }
+.page .title-wrap .title span {
+  font-weight: bold;
+  color: #5050bd;
+}
 .page .title-wrap .monthBtn {
   padding: 10px;
-  background-color: black;
+  background-color: #5050bd;
   color: white;
   margin: 0 20px;
   border-radius: 30%;
@@ -45,6 +49,12 @@
   flex: 1;
   width: 100%;
 }
+.page .calendar .tr.week .th {
+  cursor: default;
+}
+.page .calendar .tr.week .th:hover {
+  background-color: white;
+}
 .page .calendar .tr .th {
   text-align: center;
   justify-content: center;
@@ -61,12 +71,41 @@
   height: 100%; /* 셀의 높이를 부모 요소에 맞춤 */
   flex: 1;
   border: 1px solid #a4a4a4;
+  cursor: pointer;
 }
-.page .calendar .tr .td.text-gray, .page .calendar .tr .th.text-gray {
+.page .calendar .tr .td .day-with-emotion, .page .calendar .tr .th .day-with-emotion {
+  justify-content: space-between;
+  width: 100%;
+}
+.page .calendar .tr .td .day-with-emotion .emotion-img, .page .calendar .tr .th .day-with-emotion .emotion-img {
+  width: 20px;
+}
+.page .calendar .tr .td .preview-title, .page .calendar .tr .th .preview-title {
+  position: absolute;
+  width: 100%;
+  background-color: #5050bd;
+  color: white;
+  padding: 3px;
+  left: 0;
+  bottom: 0;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.page .calendar .tr .td.prev-or-next, .page .calendar .tr .th.prev-or-next {
   color: gray;
 }
-.page .calendar .tr .td.font-bold, .page .calendar .tr .th.font-bold {
+.page .calendar .tr .td.prev-or-next .day-with-emotion img, .page .calendar .tr .th.prev-or-next .day-with-emotion img {
+  opacity: 0.5;
+}
+.page .calendar .tr .td.prev-or-next:hover, .page .calendar .tr .th.prev-or-next:hover {
+  background-color: #f8f8ff;
+}
+.page .calendar .tr .td.today span, .page .calendar .tr .th.today span {
   font-weight: bold;
+  background-color: #5050bd;
+  color: white;
+  padding: 0 8px;
+  border-radius: 2rem;
 }
 .page .calendar .tr .td:first-child, .page .calendar .tr .th:first-child {
   color: #b64747;
@@ -80,6 +119,9 @@
 .page .calendar .tr .td:last-child.text-gray, .page .calendar .tr .th:last-child.text-gray {
   color: #7a7ab6;
 }
+.page .calendar .tr .td:hover, .page .calendar .tr .th:hover {
+  background-color: #eeeeff;
+}
 .page .kanban-board {
   margin: 100px 0 80px 0;
   width: 100%;
@@ -90,7 +132,7 @@
 .page .kanban-board .status {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   width: 20%;
-  min-height: 90vh;
+  min-height: 70vh;
   margin-right: 20px;
   justify-content: flex-start;
   border-radius: 1rem;
@@ -119,6 +161,9 @@
 .page .kanban-board .status .title div {
   cursor: pointer;
 }
+.page .kanban-board .status .title div svg {
+  fill: gray;
+}
 .page .kanban-board .status.todo > .title > span {
   color: #5050bd;
 }
@@ -144,27 +189,56 @@
 .page .kanban-board .status .list .list-top {
   justify-content: space-between;
 }
-.page .kanban-board .status .list .list-top .list-status {
+.page .kanban-board .status .list .list-status {
   padding: 5px;
   font-size: 12px;
   color: white;
   border-radius: 1em;
 }
-.page .kanban-board .status .list .list-top .list-status.todo {
+.page .kanban-board .status .list .list-status.todo {
   background-color: #5050bd;
 }
-.page .kanban-board .status .list .list-top .list-status.inProgress {
+.page .kanban-board .status .list .list-status.inProgress {
   background-color: #c27d7d;
 }
-.page .kanban-board .status .list .list-top .list-status.review {
+.page .kanban-board .status .list .list-status.review {
   background-color: #8560d3;
 }
-.page .kanban-board .status .list .list-top .list-status.done {
+.page .kanban-board .status .list .list-status.done {
   background-color: #69bb69;
 }
 .page .kanban-board .status .list p {
   font-family: "NotoSansB", "맑은 고딕", sans-serif;
   font-size: 20px;
+}
+.page .kanban-board .status .list.new-task-form, .page .kanban-board .status .list.edit-task-form {
+  cursor: default;
+  height: 210px;
+  position: relative;
+}
+.page .kanban-board .status .list.new-task-form input, .page .kanban-board .status .list.edit-task-form input {
+  margin-top: 15px;
+  width: 100%;
+  padding: 20px 10px;
+}
+.page .kanban-board .status .list.new-task-form textarea, .page .kanban-board .status .list.edit-task-form textarea {
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  resize: none;
+}
+.page .kanban-board .status .list.new-task-form textarea:focus, .page .kanban-board .status .list.edit-task-form textarea:focus {
+  outline: none;
+}
+.page .kanban-board .status .list.new-task-form .btn, .page .kanban-board .status .list.edit-task-form .btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 1em;
+  font-size: 12px;
 }
 
 .input-form span {
@@ -368,36 +442,118 @@
   background-color: #5050bd;
   transition: 0.3s;
 }
-.modal-bg .modal.create-todo-modal {
-  height: 300px;
+.modal-bg .modal.diary-modal {
+  width: 70%;
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  justify-content: flex-start;
+  padding: 30px 60px;
 }
-.modal-bg .modal.create-todo-modal input {
-  width: 80%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 20px 10px;
-  border-top-left-radius: 1em;
-  border-top-right-radius: 1em;
+.modal-bg .modal.diary-modal .diary-top {
+  width: 100%;
+  padding: 15px 0;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  margin-bottom: 30px;
 }
-.modal-bg .modal.create-todo-modal textarea {
-  width: 80%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+.modal-bg .modal.diary-modal .diary-top .title {
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+  font-size: 24px;
+}
+.modal-bg .modal.diary-modal .diary-top .emotion {
+  line-height: 30px;
+}
+.modal-bg .modal.diary-modal .diary-top .emotion img {
+  margin-left: 10px;
+  width: 30px;
+}
+.modal-bg .modal.diary-modal .diary-photo {
+  max-width: 90%;
+}
+.modal-bg .modal.diary-modal .contents {
+  margin-top: 20px;
+  width: 90%;
+}
+.modal-bg .modal.diary-modal .lets-add-diary {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal-bg .modal.diary-modal .lets-add-diary svg {
+  fill: gray;
+}
+.modal-bg .modal.diary-modal .lets-add-diary p {
+  margin-top: 30px;
+  color: gray;
+}
+.modal-bg .modal.diary-modal .create-diary {
+  width: 100%;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-title {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-bottom: 1px solid gray;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-photo {
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
+  align-items: flex-start;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-photo .input-photo .photo-file-label {
+  background-color: #5050bd;
+  color: white;
   padding: 5px 10px;
-  height: 100px;
-  border: none;
-  resize: none;
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
+  border-radius: 1em;
+  cursor: pointer;
 }
-.modal-bg .modal.create-todo-modal textarea:focus {
+.modal-bg .modal.diary-modal .create-diary .create-diary-photo .input-photo p {
+  margin-left: 20px;
+  color: gray;
+  font-family: "NotoSansT", "맑은 고딕", sans-serif;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-photo .preview-photo {
+  width: 100%;
+  margin-top: 10px;
+}
+.modal-bg .modal.diary-modal .create-diary #photo {
+  display: none;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-emotion {
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-emotion img {
+  cursor: pointer;
+  width: 30px;
+  margin: 0 30px;
+  padding: 5px;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-emotion img.active {
+  background-color: #d2d2d2;
+  border-radius: 1em;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-contents {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 20px;
+  height: 300px;
+  resize: none;
+}
+.modal-bg .modal.diary-modal .create-diary .create-diary-contents:focus {
   outline: none;
 }
-.modal-bg .modal.create-todo-modal .create-todo-btn {
-  margin-top: 30px;
-  background-color: #3e3ec1;
+.modal-bg .modal.diary-modal .create-diary .create-diary-btn {
+  background-color: #5050bd;
+  padding: 5px 15px;
   color: white;
-  padding: 10px 15px;
-  font-size: 17px;
   border-radius: 1em;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=common.css.map */

@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
-import Navigator from '../components/Navigator'
+import { useNavigate } from 'react-router-dom'
+import Navigator from 'components/Navigator'
+import { getCookie } from 'js/cookie'
+
 
 const Calendar = () => {
   const today = new Date()
   const [currentYear, setCurrentYear] = useState(today.getFullYear())
   const [currentMonth, setCurrentMonth] = useState(today.getMonth())
   const [calendarData, setCalendarData] = useState([])
+
+  const navigate = useNavigate()
 
   // 월 이동 함수
   const prevMonth = () => {
@@ -67,6 +72,10 @@ const Calendar = () => {
   useEffect(() => {
     generateCalendar()
   }, [currentMonth, currentYear])
+
+  useEffect(() => {
+    if (!getCookie('myToken')) navigate('/sign-in')
+  }, [])
 
   return (
     <div className='page column'>

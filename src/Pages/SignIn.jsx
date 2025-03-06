@@ -18,8 +18,8 @@ const SignIn = () => {
       const result = await signIn(id, pw)
       if (typeof result === 'object') {
         const { access_token, refresh_token } = result.data
-        setCookie('myToken', access_token)
-        setCookie('rfToken', refresh_token)
+        setCookie('myToken', access_token, { path: '/' })
+        setCookie('rfToken', refresh_token, { path: '/' })
         navigate('/home/diary')
       }
     }

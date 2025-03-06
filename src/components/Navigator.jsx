@@ -16,8 +16,8 @@ const Navigator = () => {
   const location = useLocation()
 
   const loginFn = () => {
-    removeCookie('myToken')
-    removeCookie('rfToken')
+    removeCookie('myToken', { path: '/' })
+    removeCookie('rfToken', { path: '/' })
     navigate('/sign-in')
   }
 

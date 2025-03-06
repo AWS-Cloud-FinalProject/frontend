@@ -112,29 +112,55 @@
   color: white;
   margin-bottom: 30px;
 }
+.page .kanban-board .status .title span {
+  font-family: "NotoSansBlack", "맑은 고딕", sans-serif;
+  font-size: 22px;
+}
 .page .kanban-board .status .title div {
   cursor: pointer;
 }
-.page .kanban-board .status.todo > .title {
-  background-color: #5050bd;
+.page .kanban-board .status.todo > .title > span {
+  color: #5050bd;
 }
-.page .kanban-board .status.inProgress > .title {
-  background-color: #c27d7d;
+.page .kanban-board .status.inProgress > .title > span {
+  color: #c27d7d;
 }
-.page .kanban-board .status.review > .title {
-  background-color: #8560d3;
+.page .kanban-board .status.review > .title > span {
+  color: #8560d3;
 }
-.page .kanban-board .status.done > .title {
-  background-color: #69bb69;
+.page .kanban-board .status.done > .title > span {
+  color: #69bb69;
 }
 .page .kanban-board .status .list {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  background-color: #f5f5f5;
   width: 90%;
+  height: 150px;
   border-radius: 0.5em;
   margin-bottom: 20px;
   padding: 20px 10px;
   cursor: pointer;
+  background-color: white;
+}
+.page .kanban-board .status .list .list-top {
+  justify-content: space-between;
+}
+.page .kanban-board .status .list .list-top .list-status {
+  padding: 5px;
+  font-size: 12px;
+  color: white;
+  border-radius: 1em;
+}
+.page .kanban-board .status .list .list-top .list-status.todo {
+  background-color: #5050bd;
+}
+.page .kanban-board .status .list .list-top .list-status.inProgress {
+  background-color: #c27d7d;
+}
+.page .kanban-board .status .list .list-top .list-status.review {
+  background-color: #8560d3;
+}
+.page .kanban-board .status .list .list-top .list-status.done {
+  background-color: #69bb69;
 }
 .page .kanban-board .status .list p {
   font-family: "NotoSansB", "맑은 고딕", sans-serif;

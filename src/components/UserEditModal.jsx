@@ -36,8 +36,8 @@ const UserEditModal = ({ setModal }) => {
       const result = await withdraw(currentPw)
       if (typeof result === 'object' && result?.data?.message === 'User Withdraw Success') {
         alert('이용해 주셔서 감사합니다.')
-        removeCookie('myToken')
-        removeCookie('rfToken')
+        removeCookie('myToken', { path: '/' })
+        removeCookie('rfToken', { path: '/' })
         navigate('/sign-in')
       }
     }

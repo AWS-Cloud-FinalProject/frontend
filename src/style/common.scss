@@ -529,6 +529,16 @@
       justify-content: flex-start;
       padding: 30px 60px;
 
+      .btns {
+        width: 100%;
+        text-align: right;
+        svg {
+          cursor: pointer;
+          fill: gray;
+          margin: 0 10px;
+        }
+      }
+
       .diary-top {
         width: 100%;
         padding: 15px 0;

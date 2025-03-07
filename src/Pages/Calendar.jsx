@@ -98,7 +98,6 @@ const Calendar = () => {
     }
 
     setCalendar(calendar)
-    console.log(calendar)
   }
 
 

@@ -108,3 +108,19 @@ export const createDiary = async formData => {
     return console.log(error)
   }
 }
+
+export const deleteDiary = async (date) => {
+  try {
+    return await axios.delete(`/api/delete-diary/${date}`, header())
+  } catch (error) {
+    return console.log(error)
+  }
+}
+
+export const editDiary = async (formData) => {
+  try {
+    return await axios.patch('/api/edit-diary', formData, formDataHeader())
+  } catch (error) {
+    return console.log(error)
+  }
+}

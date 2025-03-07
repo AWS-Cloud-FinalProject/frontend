@@ -450,6 +450,15 @@
   justify-content: flex-start;
   padding: 30px 60px;
 }
+.modal-bg .modal.diary-modal .btns {
+  width: 100%;
+  text-align: right;
+}
+.modal-bg .modal.diary-modal .btns svg {
+  cursor: pointer;
+  fill: gray;
+  margin: 0 10px;
+}
 .modal-bg .modal.diary-modal .diary-top {
   width: 100%;
   padding: 15px 0;

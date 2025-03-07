@@ -21,7 +21,10 @@ const SignUp = () => {
       if (pw !== checkPw) return alert('비밀번호를 정확히 입력해 주세요.')
       else {
         const result = await signUp(id, name, pw)
-        if (typeof result === 'object' && result?.data?.message === 'User created successfully') {
+        if (
+          typeof result === 'object' &&
+          result?.data?.message === 'User created successfully'
+        ) {
           navigate('/sign-in')
         }
       }
@@ -29,16 +32,42 @@ const SignUp = () => {
   }
 
   return (
-    <div className="page column">
-      <div className="box signup-box input-form">
-        <img src={wiaryLogo} alt="logo" />
+    <div className='page column'>
+      <div className='box signup-box input-form'>
+        <img src={wiaryLogo} alt='logo' />
         <span>회원가입</span>
-        <input onChange={e => setId(e.target.value)} value={id} type="text" placeholder="ID" />
-        <input onChange={e => setName(e.target.value)} value={name} type="text" placeholder="NAME" />
-        <input onChange={e => setPw(e.target.value)} value={pw} type="password" placeholder="PW" />
-        <input onChange={e => setCheckPw(e.target.value)} value={checkPw} type="password" placeholder="CHECK PW" />
-        {pw && checkPw && pw !== checkPw ? <p className="incorrect-pw">비밀번호를 올바르게 입력해 주세요.</p> : ''}
-        <button className="sign-up-btn" onClick={signUpFn}>회원가입</button>
+        <input
+          onChange={e => setId(e.target.value)}
+          value={id}
+          type='text'
+          placeholder='ID'
+        />
+        <input
+          onChange={e => setName(e.target.value)}
+          value={name}
+          type='text'
+          placeholder='NAME'
+        />
+        <input
+          onChange={e => setPw(e.target.value)}
+          value={pw}
+          type='password'
+          placeholder='PW'
+        />
+        <input
+          onChange={e => setCheckPw(e.target.value)}
+          value={checkPw}
+          type='password'
+          placeholder='CHECK PW'
+        />
+        {pw && checkPw && pw !== checkPw ? (
+          <p className='incorrect-pw'>비밀번호를 올바르게 입력해 주세요.</p>
+        ) : (
+          ''
+        )}
+        <button className='sign-up-btn' onClick={signUpFn}>
+          회원가입
+        </button>
       </div>
     </div>
   )

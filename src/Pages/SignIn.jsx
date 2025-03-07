@@ -4,9 +4,7 @@ import { signIn } from 'js/api'
 import wiaryLogo from 'Images/wiary-logo.svg'
 import { setCookie, getCookie } from 'js/cookie'
 
-
 const SignIn = () => {
-
   const navigate = useNavigate()
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
@@ -25,31 +23,44 @@ const SignIn = () => {
     }
   }
 
-  const enterFn = (e) => {
+  const enterFn = e => {
     if (e.key === 'Enter') signInFn()
     else return
   }
 
   useEffect(() => {
-    if (getCookie('myToken') && getCookie('rfToken'))
-      navigate('/home/diary')
+    if (getCookie('myToken') && getCookie('rfToken')) navigate('/home/diary')
   }, [])
 
   return (
-    <div className="page column">
-      <div className="box login-box input-form">
-        <img src={wiaryLogo} alt="logo" />
+    <div className='page column'>
+      <div className='box login-box input-form'>
+        <img src={wiaryLogo} alt='logo' />
         <span>로그인</span>
-        <div className="row">
-          <div className="column">
-            <input onChange={e => setId(e.target.value)} onKeyDown={e => enterFn(e)}
-                   value={id} type="text" placeholder="ID" />
-            <input onChange={e => setPw(e.target.value)} onKeyDown={e => enterFn(e)}
-                   value={pw} type="password" placeholder="PASSWORD" />
+        <div className='row'>
+          <div className='column'>
+            <input
+              onChange={e => setId(e.target.value)}
+              onKeyDown={e => enterFn(e)}
+              value={id}
+              type='text'
+              placeholder='ID'
+            />
+            <input
+              onChange={e => setPw(e.target.value)}
+              onKeyDown={e => enterFn(e)}
+              value={pw}
+              type='password'
+              placeholder='PASSWORD'
+            />
           </div>
-          <button className="login-btn" onClick={signInFn}>Login</button>
+          <button className='login-btn' onClick={signInFn}>
+            Login
+          </button>
         </div>
-        <p className="go-sign-up" onClick={() => navigate('/sign-up')}>회원가입</p>
+        <p className='go-sign-up' onClick={() => navigate('/sign-up')}>
+          회원가입
+        </p>
       </div>
     </div>
   )

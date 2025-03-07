@@ -100,6 +100,7 @@ const TodoBoard = () => {
       typeof result === 'object' &&
       result?.data?.message === 'Todo updated successfully'
     ) {
+      setEdit(false)
       getTodoList()
     }
   }

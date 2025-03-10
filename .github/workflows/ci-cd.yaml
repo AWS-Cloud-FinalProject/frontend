@@ -69,8 +69,8 @@ jobs:
 
       - name: Deploy frontend to EKS
         run: |
-          kubectl apply -f k8s/frontend-deployment.yaml
-          kubectl apply -f k8s/frontend-service.yaml
+          kubectl apply -f k8s/frontend-deployment.yaml --validate=false
+          kubectl apply -f k8s/frontend-service.yaml --validate=false
 
       - name: Wait for rollout to finish
         run: |

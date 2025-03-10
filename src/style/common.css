@@ -66,21 +66,25 @@
   padding: 15px;
   align-items: flex-start;
 }
-.page .calendar .tr .td, .page .calendar .tr .th {
+.page .calendar .tr .td,
+.page .calendar .tr .th {
   display: flex;
   height: 100%; /* 셀의 높이를 부모 요소에 맞춤 */
   flex: 1;
   border: 1px solid #a4a4a4;
   cursor: pointer;
 }
-.page .calendar .tr .td .day-with-emotion, .page .calendar .tr .th .day-with-emotion {
+.page .calendar .tr .td .day-with-emotion,
+.page .calendar .tr .th .day-with-emotion {
   justify-content: space-between;
   width: 100%;
 }
-.page .calendar .tr .td .day-with-emotion .emotion-img, .page .calendar .tr .th .day-with-emotion .emotion-img {
+.page .calendar .tr .td .day-with-emotion .emotion-img,
+.page .calendar .tr .th .day-with-emotion .emotion-img {
   width: 20px;
 }
-.page .calendar .tr .td .preview-title, .page .calendar .tr .th .preview-title {
+.page .calendar .tr .td .preview-title,
+.page .calendar .tr .th .preview-title {
   position: absolute;
   width: 100%;
   background-color: #5050bd;
@@ -91,35 +95,44 @@
   text-overflow: ellipsis;
   font-size: 12px;
 }
-.page .calendar .tr .td.prev-or-next, .page .calendar .tr .th.prev-or-next {
+.page .calendar .tr .td.prev-or-next,
+.page .calendar .tr .th.prev-or-next {
   color: gray;
 }
-.page .calendar .tr .td.prev-or-next .day-with-emotion img, .page .calendar .tr .th.prev-or-next .day-with-emotion img {
+.page .calendar .tr .td.prev-or-next .day-with-emotion img,
+.page .calendar .tr .th.prev-or-next .day-with-emotion img {
   opacity: 0.5;
 }
-.page .calendar .tr .td.prev-or-next:hover, .page .calendar .tr .th.prev-or-next:hover {
+.page .calendar .tr .td.prev-or-next:hover,
+.page .calendar .tr .th.prev-or-next:hover {
   background-color: #f8f8ff;
 }
-.page .calendar .tr .td.today span, .page .calendar .tr .th.today span {
+.page .calendar .tr .td.today span,
+.page .calendar .tr .th.today span {
   font-weight: bold;
   background-color: #5050bd;
   color: white;
   padding: 0 8px;
   border-radius: 2rem;
 }
-.page .calendar .tr .td:first-child, .page .calendar .tr .th:first-child {
+.page .calendar .tr .td:first-child,
+.page .calendar .tr .th:first-child {
   color: #b64747;
 }
-.page .calendar .tr .td:first-child.text-gray, .page .calendar .tr .th:first-child.text-gray {
+.page .calendar .tr .td:first-child.text-gray,
+.page .calendar .tr .th:first-child.text-gray {
   color: #c27d7d;
 }
-.page .calendar .tr .td:last-child, .page .calendar .tr .th:last-child {
+.page .calendar .tr .td:last-child,
+.page .calendar .tr .th:last-child {
   color: #3e3ec1;
 }
-.page .calendar .tr .td:last-child.text-gray, .page .calendar .tr .th:last-child.text-gray {
+.page .calendar .tr .td:last-child.text-gray,
+.page .calendar .tr .th:last-child.text-gray {
   color: #7a7ab6;
 }
-.page .calendar .tr .td:hover, .page .calendar .tr .th:hover {
+.page .calendar .tr .td:hover,
+.page .calendar .tr .th:hover {
   background-color: #eeeeff;
 }
 .page .kanban-board {
@@ -428,7 +441,8 @@
   scale: 1.5;
   margin-right: 10px;
 }
-.modal-bg .modal.user-edit-modal .change-pw-btn, .modal-bg .modal.user-edit-modal .withdraw-btn {
+.modal-bg .modal.user-edit-modal .change-pw-btn,
+.modal-bg .modal.user-edit-modal .withdraw-btn {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #3e3ec1;
@@ -438,7 +452,8 @@
   font-size: 18px;
   transition: 0.3s;
 }
-.modal-bg .modal.user-edit-modal .change-pw-btn:hover, .modal-bg .modal.user-edit-modal .withdraw-btn:hover {
+.modal-bg .modal.user-edit-modal .change-pw-btn:hover,
+.modal-bg .modal.user-edit-modal .withdraw-btn:hover {
   background-color: #5050bd;
   transition: 0.3s;
 }

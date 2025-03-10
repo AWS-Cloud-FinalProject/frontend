@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 688567288847.dkr.ecr.us-west-2.amazonaws.com/webtest:latest
+          image: 688567288847.dkr.ecr.us-west-2.amazonaws.com/front-test:latest
           ports:
             - containerPort: 80

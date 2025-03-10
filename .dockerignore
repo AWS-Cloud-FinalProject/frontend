@@ -1,0 +1,30 @@
+# Node 관련 파일 제외
+node_modules/
+npm-debug.log
+yarn.lock
+.pnpm-debug.log
+
+# 빌드된 결과물 제외 (로컬 개발용)
+build/
+dist/
+
+# 환경 변수 파일 제외 (보안)
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+
+# Git 관련 파일 제외
+.git/
+.gitignore
+
+# Docker 관련 파일 제외
+Dockerfile
+.dockerignore
+
+# 로그 및 OS 관련 파일 제외
+*.log
+*.cache
+.DS_Store
+Thumbs.db

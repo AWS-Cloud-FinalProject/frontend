@@ -29,7 +29,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend-test:latest .  # Docker 이미지 빌드
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest .  # Docker 이미지 빌드
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -43,7 +43,7 @@ jobs:
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend-test:latest  # ECR에 푸시
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest  # ECR에 푸시
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ jobs:
 
       - name: Update image in frontend-deployment.yaml
         run: |
-          sed -i 's|image: .*|image: ${{ secrets.ECR_REPOSITORY_URI }}/frontend-test:latest|' k8s/frontend-deployment.yaml
+          sed -i 's|image: .*|image: ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest|' k8s/frontend-deployment.yaml
 
       - name: Deploy frontend to EKS
         run: |

@@ -131,7 +131,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
             <img src={mode === 'create' ? uploadedPhoto : uploadedPhoto ? uploadedPhoto : diaryDetail?.photo}
                  alt="일기 이미지 미리보기" className="preview-photo" /> : ''}
         </div>
-        <input type="file" id="photo"
+        <input type="file" id="photo" accept='image/*'
                onChange={e => changeDiaryData(e, 'photo')} />
         <div className="create-diary-emotion row">
           <img src={goood} onClick={() => changeDiaryData('GOOOD', 'emotion')}

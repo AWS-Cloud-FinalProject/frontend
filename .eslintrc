@@ -1,15 +1,12 @@
 {
   "extends": [
-    "react-app",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended"
+    "react-app",  // react-app 기본 설정을 사용
+    "plugin:jsx-a11y/recommended"  // jsx-a11y 플러그인 설정 추가
   ],
   "plugins": [
-    "react-hooks",
-    "jsx-a11y"
+    "jsx-a11y"  // jsx-a11y 플러그인만 추가
   ],
   "rules": {
-    "react-hooks/exhaustive-deps": "warn",  // 경고로 처리
     "jsx-a11y/alt-text": "warn"  // 경고로 처리
   }
 }

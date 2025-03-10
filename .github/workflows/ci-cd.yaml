@@ -67,6 +67,11 @@ jobs:
         run: |
           sed -i 's|image: .*|image: ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest|' k8s/frontend-deployment.yaml
 
+      - name: Delete Existing FrontEnd
+        run: |
+          kubectl delete deploy frontend-deployment
+          kubectl delete svc frontend-service
+
       - name: Deploy frontend to EKS
         run: |
           kubectl apply -f k8s/frontend-deployment.yaml --validate=false

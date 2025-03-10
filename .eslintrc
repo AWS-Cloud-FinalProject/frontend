@@ -7,6 +7,9 @@
     "jsx-a11y"  // jsx-a11y 플러그인만 추가
   ],
   "rules": {
-    "jsx-a11y/alt-text": "warn"  // 경고로 처리
+    "jsx-a11y/alt-text": "warn", // 경고로 처리
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

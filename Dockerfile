@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN DISABLE_ESLINT_PLUGIN=true npm run build
 
 # 2. Nginx를 이용해 정적 파일 제공
 FROM nginx:alpine

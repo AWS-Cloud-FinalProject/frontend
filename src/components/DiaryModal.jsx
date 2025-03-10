@@ -185,6 +185,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
             <input
               type='file'
               id='photo'
+              accept='image/*'
               onChange={e => changeDiaryData(e, 'photo')}
             />
             <div className='create-diary-emotion row'>

@@ -150,31 +150,6 @@ const DiaryModal = ({ setModal, selectedDate }) => {
             <FaPlus size={80} />
             <p>일기를 추가해 보세요.</p>
           </div>
-<<<<<<< HEAD
-          {uploadedPhoto || diaryDetail?.photo ?
-            <img src={mode === 'create' ? uploadedPhoto : uploadedPhoto ? uploadedPhoto : diaryDetail?.photo}
-                 alt="일기 이미지 미리보기" className="preview-photo" /> : ''}
-        </div>
-        <input type="file" id="photo" accept='image/*'
-               onChange={e => changeDiaryData(e, 'photo')} />
-        <div className="create-diary-emotion row">
-          <img src={goood} onClick={() => changeDiaryData('GOOOD', 'emotion')}
-               className={diaryData?.emotion === 'GOOOD' ? 'active' : ''} />
-          <img src={good} onClick={() => changeDiaryData('GOOD', 'emotion')}
-               className={diaryData?.emotion === 'GOOD' ? 'active' : ''} />
-          <img src={soso} onClick={() => changeDiaryData('SOSO', 'emotion')}
-               className={diaryData?.emotion === 'SOSO' ? 'active' : ''} />
-          <img src={bad} onClick={() => changeDiaryData('BAD', 'emotion')}
-               className={diaryData?.emotion === 'BAD' ? 'active' : ''} />
-          <img src={baaad} onClick={() => changeDiaryData('BAAAD', 'emotion')}
-               className={diaryData?.emotion === 'BAAAD' ? 'active' : ''} />
-        </div>
-        <textarea placeholder="일기 내용" className="create-diary-contents" value={diaryData.contents}
-                  onChange={e => changeDiaryData(e, 'contents')} />
-        <button className="create-diary-btn" onClick={createOrEdit}>일기 {mode === 'create' ? '저장' : '수정'}</button>
-      </div> : <>
-      </>}
-=======
         ) : mode === 'create' || mode === 'edit' ? (
           <div className='column create-diary'>
             <input
@@ -210,6 +185,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
             <input
               type='file'
               id='photo'
+              accept='image/*'
               onChange={e => changeDiaryData(e, 'photo')}
             />
             <div className='create-diary-emotion row'>
@@ -253,7 +229,6 @@ const DiaryModal = ({ setModal, selectedDate }) => {
           <></>
         )}
       </div>
->>>>>>> c6ce60e95ce558df43588985d871c27947065d1e
     </div>
   )
 }

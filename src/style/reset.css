@@ -1,23 +1,23 @@
 @charset "UTF-8";
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'NotoSansR', '맑은 고딕', sans-serif;
-    font-weight: normal;
-    z-index: 1;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'NotoSansR', '맑은 고딕', sans-serif;
+  font-weight: normal;
+  z-index: 1;
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
-    scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
 }
 
 ul,
 dl,
 li,
 ol {
-    list-style: none;
+  list-style: none;
 }
 
 h1,
@@ -25,29 +25,29 @@ h2,
 h3,
 h4,
 h5 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 button {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 select {
-    outline: none;
+  outline: none;
 }
 
 input {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }

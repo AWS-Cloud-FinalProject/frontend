@@ -10,7 +10,6 @@ import soso from 'Images/emotion/SOSO.png'
 import bad from 'Images/emotion/BAD.png'
 import baaad from 'Images/emotion/BAAAD.png'
 
-
 const Calendar = () => {
   const today = new Date()
   const [currentYear, setCurrentYear] = useState(today.getFullYear())
@@ -20,7 +19,11 @@ const Calendar = () => {
   const [modal, setModal] = useState(false)
   const [calendarData, setCalendarData] = useState([])
   const emotionObj = {
-    goood: goood, good: good, soso: soso, bad: bad, baaad: baaad,
+    goood: goood,
+    good: good,
+    soso: soso,
+    bad: bad,
+    baaad: baaad,
   }
 
   let prevent = false
@@ -50,7 +53,13 @@ const Calendar = () => {
     for (let i = 0; i < 6; i++) {
       let week = []
       for (let j = 0; j < 7; j++) {
-        let dayObj = { day: dayCounter, type: '', year: currentYear, month: currentMonth + 1, emotion: null }
+        let dayObj = {
+          day: dayCounter,
+          type: '',
+          year: currentYear,
+          month: currentMonth + 1,
+          emotion: null,
+        }
 
         if (dayCounter < 1) {
           // 이전 달 날짜
@@ -63,7 +72,9 @@ const Calendar = () => {
             type: 'prev',
             year: prevYear,
             month: prevMonth,
-            emotion: calendarData.find(entry => entry.date === dateStr)?.emotion || null,
+            emotion:
+              calendarData.find(entry => entry.date === dateStr)?.emotion ||
+              null,
           }
         } else if (dayCounter > lastDate) {
           // 다음 달 날짜
@@ -76,7 +87,9 @@ const Calendar = () => {
             type: 'next',
             year: nextYear,
             month: nextMonth,
-            emotion: calendarData.find(entry => entry.date === dateStr)?.emotion || null,
+            emotion:
+              calendarData.find(entry => entry.date === dateStr)?.emotion ||
+              null,
           }
         } else {
           // 현재 달 날짜
@@ -86,7 +99,9 @@ const Calendar = () => {
             type: 'current',
             year: currentYear,
             month: currentMonth + 1,
-            emotion: calendarData.find(entry => entry.date === dateStr)?.emotion || null,
+            emotion:
+              calendarData.find(entry => entry.date === dateStr)?.emotion ||
+              null,
           }
         }
 
@@ -100,14 +115,14 @@ const Calendar = () => {
     setCalendar(calendar)
   }
 
-
   const getDiaryFn = async () => {
     if (prevent) return
     prevent = true
     setTimeout(() => {
       prevent = false
     }, 200)
-    const month = currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1
+    const month =
+      currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1
     const result = await getDiary(`${currentYear}${month}`)
     if (typeof result === 'object') {
       setCalendarData(result?.data)
@@ -123,49 +138,68 @@ const Calendar = () => {
     if (!modal) getDiaryFn()
   }, [modal])
 
-  return (<>
-    <div className="page column">
-      <Navigator />
-      {/* 월 변경 버튼 */}
-      <div className="title-wrap row">
-        <button className="monthBtn" onClick={prevMonth}>◀</button>
-        <h2 className="title">
-          <span>{currentYear}</span>년 <span>{currentMonth + 1}</span>월
-        </h2>
-        <button className="monthBtn" onClick={nextMonth}>▶</button>
-      </div>
-      {/* 캘린더 테이블 */}
-      <div className="calendar column">
-        <div className="row tr week">
-          {['일', '월', '화', '수', '목', '금', '토'].map((day, idx) => (<span className="th">{day}</span>))}
+  return (
+    <>
+      <div className='page column'>
+        <Navigator />
+        {/* 월 변경 버튼 */}
+        <div className='title-wrap row'>
+          <button className='monthBtn' onClick={prevMonth}>
+            ◀
+          </button>
+          <h2 className='title'>
+            <span>{currentYear}</span>년 <span>{currentMonth + 1}</span>월
+          </h2>
+          <button className='monthBtn' onClick={nextMonth}>
+            ▶
+          </button>
         </div>
-        {calendar.map((week, i) => (
-          <div className="row tr">
-            {week.map(({ year, month, day, type, emotion }) => (
-              <div
-                className={`column td
+        {/* 캘린더 테이블 */}
+        <div className='calendar column'>
+          <div className='row tr week'>
+            {['일', '월', '화', '수', '목', '금', '토'].map((day, idx) => (
+              <span className='th'>{day}</span>
+            ))}
+          </div>
+          {calendar.map((week, i) => (
+            <div className='row tr'>
+              {week.map(({ year, month, day, type, emotion }) => (
+                <div
+                  className={`column td
                   ${type === 'prev' || type === 'next' ? 'prev-or-next' : 'text-black day'}
                   ${year === today.getFullYear() && month === today.getMonth() + 1 && day === today.getDate() ? 'today' : ''}
                 `}
-                onClick={() => {
-                  setSelectedDate(`${year}${month < 10 ? '0' + month : month}${day < 10 ? '0' + day : day}`)
-                  setModal(true)
-                }}
-              >
-                {emotion ? <>
-                  <div className="row day-with-emotion">
-                    <span>{day}</span>
-                    <img className="emotion-img" src={emotionObj[emotion?.toLowerCase()]} />
-                  </div>
-                </> : <>
-                  <span>{day}</span>
-                </>}
-              </div>))}
-          </div>))}
+                  onClick={() => {
+                    setSelectedDate(
+                      `${year}${month < 10 ? '0' + month : month}${day < 10 ? '0' + day : day}`
+                    )
+                    setModal(true)
+                  }}
+                >
+                  {emotion ? (
+                    <>
+                      <div className='row day-with-emotion'>
+                        <span>{day}</span>
+                        <img
+                          className='emotion-img'
+                          src={emotionObj[emotion?.toLowerCase()]}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <span>{day}</span>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    {modal && <DiaryModal setModal={setModal} selectedDate={selectedDate} />}
-  </>)
+      {modal && <DiaryModal setModal={setModal} selectedDate={selectedDate} />}
+    </>
+  )
 }
 
 export default Calendar

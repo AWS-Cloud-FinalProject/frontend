@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-unused-vars": "warn",  // 경고로 처리
+    "react-hooks/exhaustive-deps": "warn",  // 경고로 처리
+    "jsx-a11y/alt-text": "warn"  // 경고로 처리
+  }
+}

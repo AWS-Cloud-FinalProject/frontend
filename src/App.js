@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Calendar from 'Pages/Calendar'
 import SignIn from 'Pages/SignIn'
 import SignUp from 'Pages/SignUp'

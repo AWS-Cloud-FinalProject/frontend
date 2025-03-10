@@ -182,6 +182,7 @@ const Calendar = () => {
                         <span>{day}</span>
                         <img
                           className='emotion-img'
+                          alt='이모지 이미지'
                           src={emotionObj[emotion?.toLowerCase()]}
                         />
                       </div>

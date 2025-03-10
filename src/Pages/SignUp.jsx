@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import wiaryLogo from 'Images/wiary-logo.svg'
 import { signUp } from '../js/api'
-import { setCookie } from '../js/cookie'
 import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {

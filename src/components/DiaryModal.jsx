@@ -136,10 +136,10 @@ const DiaryModal = ({ setModal, selectedDate }) => {
               <h2 className='title'>{diaryDetail?.title}</h2>
               <span className='emotion row'>
                 오늘의 기분:
-                <img src={emotionObj[diaryDetail?.emotion?.toLowerCase()]} />
+                <img alt='오늘의 기분 이모지' src={emotionObj[diaryDetail?.emotion?.toLowerCase()]} />
               </span>
             </div>
-            <img className='diary-photo' src={diaryDetail?.photo} />
+            <img alt='일기 사진' className='diary-photo' src={diaryDetail?.photo} />
             <p className='contents'>{diaryDetail?.contents}</p>
           </>
         ) : mode === 'prev-create' ? (
@@ -191,26 +191,31 @@ const DiaryModal = ({ setModal, selectedDate }) => {
             <div className='create-diary-emotion row'>
               <img
                 src={goood}
+                alt='아주 좋음'
                 onClick={() => changeDiaryData('GOOOD', 'emotion')}
                 className={diaryData?.emotion === 'GOOOD' ? 'active' : ''}
               />
               <img
                 src={good}
+                alt='좋음'
                 onClick={() => changeDiaryData('GOOD', 'emotion')}
                 className={diaryData?.emotion === 'GOOD' ? 'active' : ''}
               />
               <img
                 src={soso}
+                alt='그냥 그럼'
                 onClick={() => changeDiaryData('SOSO', 'emotion')}
                 className={diaryData?.emotion === 'SOSO' ? 'active' : ''}
               />
               <img
                 src={bad}
+                alt='나쁨'
                 onClick={() => changeDiaryData('BAD', 'emotion')}
                 className={diaryData?.emotion === 'BAD' ? 'active' : ''}
               />
               <img
                 src={baaad}
+                alt='매우 나쁨'
                 onClick={() => changeDiaryData('BAAAD', 'emotion')}
                 className={diaryData?.emotion === 'BAAAD' ? 'active' : ''}
               />

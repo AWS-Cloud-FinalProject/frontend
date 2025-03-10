@@ -4,7 +4,7 @@ module.exports = app => {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://backend-service.default.svc.cluster.local',
+      target: 'http://backend-service',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',

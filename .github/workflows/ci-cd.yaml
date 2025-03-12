@@ -3,7 +3,7 @@ name: React CI/CD with Docker and EKS
 on:
   push:
     branches:
-      - master
+      - doyeon-action
 
 permissions:
   contents: read

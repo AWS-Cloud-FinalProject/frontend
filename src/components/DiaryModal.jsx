@@ -132,7 +132,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
               <FaRegTrashCan size={30} onClick={deleteDiaryFn} />
             </div>
             <div className='row diary-top'>
-              <h2 className='title'>{diaryDetail?.title}</h2>
+              <h2 clasPsName='title'>{diaryDetail?.title}</h2>
               <span className='emotion row'>
                 오늘의 기분:
                 <img

@@ -73,7 +73,7 @@ const tokenReissue = async () => {
     'refresh-token': getCookie('rfToken'),
   }
   try {
-    const result = await axios.get(`/api/refresh-token`, { headers })
+    const result = await axios.get(`http://backend-service/refresh-token`, { headers })
     removeCookie('myToken')
     setCookie('myToken', result?.data?.access_token, {
       path: '/',
@@ -86,7 +86,7 @@ const tokenReissue = async () => {
 
 export const signIn = async (id, pw) => {
   try {
-    return await axios.post('/api/sign-in', { id: id, password: pw })
+    return await axios.post('http://backend-service/sign-in', { id: id, password: pw })
   } catch (error) {
     return await errorHandling(error)
   }
@@ -94,7 +94,7 @@ export const signIn = async (id, pw) => {
 
 export const signUp = async (id, name, pw, email) => {
   try {
-    return await axios.post('/api/sign-up', {
+    return await axios.post('http://backend-service/sign-up', {
       id: id,
       name: name,
       password: pw,
@@ -108,7 +108,7 @@ export const signUp = async (id, name, pw, email) => {
 export const editPw = async (pw, new_pw) => {
   try {
     return await axios.patch(
-      '/api/edit-pw',
+      'http://backend-service/edit-pw',
       { password: pw, new_password: new_pw },
       header()
     )
@@ -120,7 +120,7 @@ export const editPw = async (pw, new_pw) => {
 export const withdraw = async pw => {
   const headers = header()
   try {
-    return await axios.delete('/api/withdraw', {
+    return await axios.delete('http://backend-service/withdraw', {
       headers: headers.headers,
       data: {
         password: pw,
@@ -133,7 +133,7 @@ export const withdraw = async pw => {
 
 export const getTodo = async () => {
   try {
-    return await axios.get('/api/get-todo', header())
+    return await axios.get('http://backend-service/get-todo', header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -141,7 +141,7 @@ export const getTodo = async () => {
 
 export const createTodo = async data => {
   try {
-    return await axios.post('/api/create-todo', data, header())
+    return await axios.post('http://backend-service/create-todo', data, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -149,7 +149,7 @@ export const createTodo = async data => {
 
 export const deleteTodo = async todo_num => {
   try {
-    return await axios.delete(`/api/delete-todo/${todo_num}`, header())
+    return await axios.delete(`http://backend-service/delete-todo/${todo_num}`, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -157,7 +157,7 @@ export const deleteTodo = async todo_num => {
 
 export const editTodo = async data => {
   try {
-    return await axios.patch('/api/edit-todo', data, header())
+    return await axios.patch('http://backend-service/edit-todo', data, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -165,7 +165,7 @@ export const editTodo = async data => {
 
 export const getDiary = async year_month => {
   try {
-    return await axios.get(`/api/get-diary/${year_month}`, header())
+    return await axios.get(`http://backend-service/get-diary/${year_month}`, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -173,7 +173,7 @@ export const getDiary = async year_month => {
 
 export const getDiaryDetail = async date => {
   try {
-    return await axios.get(`/api/get-diary-detail/${date}`, header())
+    return await axios.get(`http://backend-service/get-diary-detail/${date}`, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -181,7 +181,7 @@ export const getDiaryDetail = async date => {
 
 export const createDiary = async formData => {
   try {
-    return await axios.post('/api/add-diary', formData, formDataHeader())
+    return await axios.post('http://backend-service/add-diary', formData, formDataHeader())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -189,7 +189,7 @@ export const createDiary = async formData => {
 
 export const deleteDiary = async date => {
   try {
-    return await axios.delete(`/api/delete-diary/${date}`, header())
+    return await axios.delete(`http://backend-service/delete-diary/${date}`, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -197,7 +197,7 @@ export const deleteDiary = async date => {
 
 export const editDiary = async formData => {
   try {
-    return await axios.patch('/api/edit-diary', formData, formDataHeader())
+    return await axios.patch('http://backend-service/edit-diary', formData, formDataHeader())
   } catch (error) {
     return await errorHandling(error)
   }

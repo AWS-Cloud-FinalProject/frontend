@@ -89,7 +89,6 @@ const DiaryModal = ({ setModal, selectedDate }) => {
           typeof result == 'object' &&
           result?.data?.message === 'Diary entry updated successfully'
         ) {
-          alert('수정 되었습니다.')
           setModal(false)
         }
       }

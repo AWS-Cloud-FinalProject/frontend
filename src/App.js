@@ -5,8 +5,19 @@ import SignIn from 'Pages/SignIn'
 import SignUp from 'Pages/SignUp'
 import TodoBoard from 'Pages/TodoBoard'
 import { getCookie } from './js/cookie'
+import { useEffect } from 'react'
+import { ping } from './js/api'
 
 const App = () => {
+
+  const pingFn = async () => {
+    const result = await ping();
+    console.log(result)
+  }
+  useEffect(() => {
+    pingFn()
+  }, [])
+
   return (
     <div>
       <Routes>

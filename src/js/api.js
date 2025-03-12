@@ -84,6 +84,14 @@ const tokenReissue = async () => {
   }
 }
 
+export const ping = async () => {
+  try {
+    return await axios.get('http://backend-service/ping')
+  } catch (error) {
+    return console.log(error)
+  }
+}
+
 export const signIn = async (id, pw) => {
   try {
     return await axios.post('http://backend-service/sign-in', { id: id, password: pw })

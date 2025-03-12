@@ -135,10 +135,21 @@ const DiaryModal = ({ setModal, selectedDate }) => {
               <h2 className='title'>{diaryDetail?.title}</h2>
               <span className='emotion row'>
                 오늘의 기분:
-                <img alt='오늘의 기분 이모지' src={emotionObj[diaryDetail?.emotion?.toLowerCase()]} />
+                <img
+                  alt='오늘의 기분 이모지'
+                  src={emotionObj[diaryDetail?.emotion?.toLowerCase()]}
+                />
               </span>
             </div>
-            <img alt='일기 사진' className='diary-photo' src={diaryDetail?.photo} />
+            {diaryDetail?.photo ? (
+              <img
+                alt='일기 사진'
+                className='diary-photo'
+                src={diaryDetail?.photo}
+              />
+            ) : (
+              <></>
+            )}
             <p className='contents'>{diaryDetail?.contents}</p>
           </>
         ) : mode === 'prev-create' ? (

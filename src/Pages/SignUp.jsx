@@ -7,6 +7,7 @@ const SignUp = () => {
   const [id, setId] = useState('')
   const [name, setName] = useState('')
   const [pw, setPw] = useState('')
+  const [email, setEmail] = useState('')
   const [checkPw, setCheckPw] = useState('')
 
   const navigate = useNavigate()
@@ -15,11 +16,12 @@ const SignUp = () => {
     if (id === '') return alert('아이디를 입력해 주세요.')
     else if (name === '') return alert('이름을 입력해 주세요.')
     else if (pw === '') return alert('비밀번호를 입력해 주세요.')
+    else if (email === '') return alert('이메일을 입력해 주세요.')
     else if (checkPw === '') return alert('비밀번호 확인을 입력해 주세요.')
     else {
       if (pw !== checkPw) return alert('비밀번호를 정확히 입력해 주세요.')
       else {
-        const result = await signUp(id, name, pw)
+        const result = await signUp(id, name, pw, email)
         if (
           typeof result === 'object' &&
           result?.data?.message === 'User created successfully'
@@ -46,6 +48,12 @@ const SignUp = () => {
           value={name}
           type='text'
           placeholder='NAME'
+        />
+        <input
+          onChange={e => setEmail(e.target.value)}
+          value={email}
+          type='text'
+          placeholder='EMAIL'
         />
         <input
           onChange={e => setPw(e.target.value)}

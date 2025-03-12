@@ -4,7 +4,7 @@ module.exports = app => {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://backend-service',
+      target: 'http://localhost:8000',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',

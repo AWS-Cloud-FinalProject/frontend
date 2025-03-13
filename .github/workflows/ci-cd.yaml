@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload build output
         id: build_output
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: build/
@@ -92,7 +92,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download build output
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-output
           path: build/

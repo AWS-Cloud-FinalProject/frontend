@@ -62,7 +62,7 @@ jobs:
           persist-credentials: true
           fetch-depth: 0
           ref: doyeon-action
-          clean: false # 기존 변경사항 유지
+          clean: false
 
       - name: Configure AWS CLI
         run: |
@@ -85,10 +85,10 @@ jobs:
           git config --global pull.rebase true
           git fetch origin
           git checkout doyeon-action
-          git reset --hard origin/doyeon-action
+          git pull origin doyeon-action --rebase
           git add k8s/frontend-deployment.yaml
           git commit -m "Update image tag to latest version" || echo "No changes to commit"
-          git push origin doyeon-action
+          git push origin doyeon-action --force
 
       - name: Deploy ArgoCD Applications
         run: |

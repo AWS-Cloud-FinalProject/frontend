@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 688567288847.dkr.ecr.us-west-2.amazonaws.com/front-test:latest
+          image: ${ECR_REPOSITORY_URI}/front-test:${IMAGE_TAG}
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           resources:

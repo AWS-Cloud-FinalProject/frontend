@@ -7,9 +7,9 @@ metadata:
     app.kubernetes.io/name: frontend
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.type | default "LoadBalancer"}}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.service.port | default 80 }}
       targetPort: 80
       protocol: TCP
       name: http

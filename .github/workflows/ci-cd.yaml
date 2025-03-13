@@ -111,6 +111,7 @@ jobs:
         run: |
           # Update ArgoCD application with the new image tag
           sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-application.yaml
+          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-deployment.yaml
           sed -i "s|\${IMAGE_TAG}|${{ env.LATEST_TAG }}|g" k8s/frontend-application.yaml
 
           # Apply ArgoCD configurations

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: front-test:latest
+          image: ${ECR_REPOSITORY_URI}:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80

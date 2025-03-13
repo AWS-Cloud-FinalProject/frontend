@@ -1,5 +1,5 @@
 repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-targetRevision: doyeon-action
+targetRevision: develop
 frontend:
   image:
     repository: front-test

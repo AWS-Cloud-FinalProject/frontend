@@ -145,12 +145,7 @@ jobs:
       - name: Cleanup old ReplicaSets
         run: |
           # Get all ReplicaSets except the latest one and delete them
-          $replicasets = kubectl get replicaset -l app=frontend -o name | Select-Object -Skip 1
-          if ($replicasets) {
-            $replicasets | ForEach-Object {
-              kubectl delete $_
-            }
-          }
+          kubectl get replicaset -l app=frontend -o name | tail -n +2 | xargs -r kubectl delete
 
       - name: Set up Helm
         uses: azure/setup-helm@v3

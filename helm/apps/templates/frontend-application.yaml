@@ -20,8 +20,8 @@ spec:
           repository: {{ .Values.frontend.image.repository }}
           tag: {{ .Values.frontend.image.tag }}
         service:
-          type: {{ .Values.service.type }}
-          port: {{ .Values.service.port }}
+          type: LoadBalancer
+          port: 80
   destination:
     server: https://kubernetes.default.svc
     namespace: default

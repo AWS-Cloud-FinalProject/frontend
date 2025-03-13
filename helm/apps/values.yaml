@@ -6,7 +6,3 @@ frontend:
   image:
     repository: front-test
     tag: ${LATEST_TAG}
-
-service:
-  type: LoadBalancer
-  port: 80

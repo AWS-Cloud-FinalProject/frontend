@@ -9,6 +9,12 @@ spec:
     repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
     targetRevision: doyeon-action
     path: k8s
+    helm:
+      parameters:
+        - name: 'image.repository'
+          value: '${ECR_REPOSITORY_URI}/front-test'
+        - name: 'image.tag'
+          value: '${IMAGE_TAG}'
   destination:
     server: https://kubernetes.default.svc
     namespace: default

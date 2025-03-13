@@ -107,31 +107,12 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Update image tag in deployment
-        run: |
-          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-deployment.yaml
-          sed -i "s|\${IMAGE_TAG}|${{ env.LATEST_TAG }}|g" k8s/frontend-deployment.yaml
-
-      - name: Git operations
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          # Update local branch
-          git fetch origin
-          git checkout doyeon-action
-
-          # Add and commit changes
-          git add k8s/frontend-deployment.yaml
-          git commit -m "Update deployment to version ${{ env.LATEST_TAG }}" || echo "No changes to commit"
-
-          # Pull and rebase if needed
-          git pull --rebase origin doyeon-action
-
-          # Push changes
-          git push origin doyeon-action
-
       - name: Deploy ArgoCD Applications
         run: |
+          # Update ArgoCD application with the new image tag
+          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-application.yaml
+          sed -i "s|\${IMAGE_TAG}|${{ env.LATEST_TAG }}|g" k8s/frontend-application.yaml
+
+          # Apply ArgoCD configurations
           kubectl apply -f k8s/app-of-apps.yaml -n argocd
           kubectl apply -f k8s/frontend-application.yaml -n argocd

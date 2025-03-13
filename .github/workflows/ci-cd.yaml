@@ -121,7 +121,21 @@ jobs:
           frontend:
             image:
               repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
-              tag: ${{ env.LATEST_TAG }}
+              tag: ${LATEST_TAG}
+          EOF
+
+          # Create values file for frontend chart
+          cat > helm/frontend/values.yaml << EOF
+          replicaCount: 1
+
+          image:
+            repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
+            tag: ${LATEST_TAG}
+            pullPolicy: Always
+
+          service:
+            type: LoadBalancer
+            port: 80
           EOF
 
           # Apply the apps chart using Helm

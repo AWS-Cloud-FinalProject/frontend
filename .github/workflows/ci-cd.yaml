@@ -76,75 +76,75 @@ jobs:
           git push origin ${{ env.NEW_TAG }}
 
   deploy:
-  runs-on: ubuntu-latest
-  needs: build
+    runs-on: ubuntu-latest
+    needs: build
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        persist-credentials: true
-        fetch-depth: 0
-        ref: doyeon-action
-        clean: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+          ref: doyeon-action
+          clean: false
 
-    - name: Get latest tag
-      id: latest_tag
-      run: |
-        git fetch --tags
-        LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null || echo "v0.0.1")
-        echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+      - name: Get latest tag
+        id: latest_tag
+        run: |
+          git fetch --tags
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null || echo "v0.0.1")
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
-    - name: Debug LATEST_TAG
-      run: echo "LATEST_TAG is $LATEST_TAG"
+      - name: Debug LATEST_TAG
+        run: echo "LATEST_TAG is $LATEST_TAG"
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Update kubeconfig for EKS
-      run: |
-        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-    - name: Cleanup old ArgoCD Applications
-      run: |
-        kubectl delete application frontend-app -n argocd --ignore-not-found=true
-        kubectl delete application root-app -n argocd --ignore-not-found=true --force --grace-period=0
+      - name: Cleanup old ArgoCD Applications
+        run: |
+          kubectl delete application frontend-app -n argocd --ignore-not-found=true
+          kubectl delete application root-app -n argocd --ignore-not-found=true --force --grace-period=0
 
-    - name: Set up Helm
-      uses: azure/setup-helm@v3
-      with:
-        version: 'latest'
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
 
-    - name: Deploy Applications
-      run: |
-        # Create values override file for apps chart
-        cat > helm/apps/values.yaml << EOF
-        repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-        targetRevision: doyeon-action
-        frontend:
+      - name: Deploy Applications
+        run: |
+          # Create values override file for apps chart
+          cat > helm/apps/values.yaml << EOF
+          repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
+          targetRevision: doyeon-action
+          frontend:
+            image:
+              repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
+              tag: ${LATEST_TAG}
+          EOF
+
+          # Create values file for frontend chart
+          cat > helm/frontend/values.yaml << EOF
+          replicaCount: 1
+
           image:
             repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
             tag: ${LATEST_TAG}
-        EOF
+            pullPolicy: Always
 
-        # Create values file for frontend chart
-        cat > helm/frontend/values.yaml << EOF
-        replicaCount: 1
+          service:
+            type: LoadBalancer
+            port: 80
+          EOF
 
-        image:
-          repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
-          tag: ${LATEST_TAG}
-          pullPolicy: Always
-
-        service:
-          type: LoadBalancer
-          port: 80
-        EOF
-
-        # Apply the apps chart using Helm
-        helm upgrade --install apps helm/apps -n argocd --create-namespace
+          # Apply the apps chart using Helm
+          helm upgrade --install apps helm/apps -n argocd --create-namespace

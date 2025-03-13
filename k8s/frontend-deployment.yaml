@@ -15,10 +15,13 @@ spec:
       labels:
         app: frontend
         app.kubernetes.io/name: frontend
+      annotations:
+        # Add timestamp annotation to force update
+        kubectl.kubernetes.io/restartedAt: '{{ now | date "2006-01-02T15:04:05Z07:00" }}'
     spec:
       containers:
         - name: frontend
-          image: 688567288847.dkr.ecr.us-west-2.amazonaws.com/front-test:v0.0.2
+          image: ${ECR_REPOSITORY_URI}/front-test:${IMAGE_TAG}
           imagePullPolicy: Always
           ports:
             - containerPort: 80

@@ -11,8 +11,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: {{ .Values.repoURL }}
-    targetRevision: {{ .Values.targetRevision }}
+    repoURL: { { .Values.repoURL } }
+    targetRevision: { { .Values.targetRevision } }
     path: helm/frontend
     helm:
       values: |
@@ -29,5 +29,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: true
     syncOptions:
       - CreateNamespace=true
+      - PruneLast=true

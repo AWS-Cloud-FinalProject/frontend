@@ -107,13 +107,22 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Deploy ArgoCD Applications
-        run: |
-          # Update ArgoCD application with the new image tag
-          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-application.yaml
-          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-deployment.yaml
-          sed -i "s|\${IMAGE_TAG}|${{ env.LATEST_TAG }}|g" k8s/frontend-application.yaml
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
 
-          # Apply ArgoCD configurations
-          kubectl apply -f k8s/app-of-apps.yaml -n argocd
-          kubectl apply -f k8s/frontend-application.yaml -n argocd
+      - name: Deploy Applications
+        run: |
+          # Create values override file for apps chart
+          cat > helm/apps/values.yaml << EOF
+          repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
+          targetRevision: doyeon-action
+          frontend:
+            image:
+              repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
+              tag: ${{ env.LATEST_TAG }}
+          EOF
+
+          # Apply the apps chart using Helm
+          helm upgrade --install apps helm/apps -n argocd --create-namespace

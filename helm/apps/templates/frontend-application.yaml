@@ -6,15 +6,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-    targetRevision: doyeon-action
-    path: k8s
+    repoURL: { { .Values.repoURL } }
+    targetRevision: { { .Values.targetRevision } }
+    path: helm/frontend
     helm:
-      parameters:
-        - name: 'image.repository'
-          value: '${ECR_REPOSITORY_URI}'
-        - name: 'image.tag'
-          value: '${IMAGE_TAG}'
+      values: |
+        image:
+          repository: front-test
+          tag: latest
   destination:
     server: https://kubernetes.default.svc
     namespace: default

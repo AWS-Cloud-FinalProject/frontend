@@ -12,6 +12,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_output: ${{ steps.build_output.outputs.path }}
 
     steps:
       - name: Checkout code
@@ -32,6 +34,26 @@ jobs:
       - name: Build React app
         run: DISABLE_ESLINT_PLUGIN=true npm run build
 
+      - name: Upload build output
+        id: build_output
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: build/
+
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.version.outputs.NEW_TAG }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+
       - name: Generate version
         id: version
         run: |
@@ -47,12 +69,33 @@ jobs:
           # Increment patch version
           PATCH=$((PATCH + 1))
           NEW_TAG="v$MAJOR.$MINOR.$PATCH"
-          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
           echo "Version will be: $NEW_TAG"
 
-      - name: Build Docker image
+      - name: Create and push Git tag
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/front-test:${{ env.NEW_TAG }} .
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git tag -a ${{ steps.version.outputs.NEW_TAG }} -m "Release ${{ steps.version.outputs.NEW_TAG }}"
+          git push origin ${{ steps.version.outputs.NEW_TAG }}
+
+  docker:
+    needs: [build, version]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Download build output
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: build/
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -64,20 +107,14 @@ jobs:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Push Docker image to ECR
+      - name: Build and push Docker image
         run: |
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:${{ env.NEW_TAG }}
-
-      - name: Create and push Git tag
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git tag -a ${{ env.NEW_TAG }} -m "Release ${{ env.NEW_TAG }}"
-          git push origin ${{ env.NEW_TAG }}
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/front-test:${{ needs.version.outputs.new_tag }} .
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:${{ needs.version.outputs.new_tag }}
 
   deploy:
+    needs: [docker, version]
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
       - name: Checkout code
@@ -88,16 +125,6 @@ jobs:
           fetch-depth: 0
           ref: develop
           clean: false
-
-      - name: Get latest tag
-        id: latest_tag
-        run: |
-          git fetch --tags
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null || echo "v0.0.1")
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-
-      - name: Debug LATEST_TAG
-        run: echo "LATEST_TAG is $LATEST_TAG"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -139,7 +166,7 @@ jobs:
           frontend:
             image:
               repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
-              tag: ${LATEST_TAG}
+              tag: ${{ needs.version.outputs.new_tag }}
           EOF
 
           # Create values file for frontend chart
@@ -148,7 +175,7 @@ jobs:
 
           image:
             repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
-            tag: ${LATEST_TAG}
+            tag: ${{ needs.version.outputs.new_tag }}
             pullPolicy: Always
 
           service:

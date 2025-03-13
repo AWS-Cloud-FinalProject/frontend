@@ -80,7 +80,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git pull origin doyeon-action --rebase
+          git config pull.rebase true
+          git fetch origin
+          git reset --hard origin/doyeon-action
           git add k8s/frontend-deployment.yaml
           git commit -m "Update image tag to latest version" || echo "No changes to commit"
           git push origin doyeon-action

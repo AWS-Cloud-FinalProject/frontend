@@ -6,7 +6,8 @@ on:
       - doyeon-action
 
 permissions:
-  contents: write # GitHub 토큰에 쓰기 권한 필요
+  contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -16,9 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 추가
-          persist-credentials: true # 자격증명 유지
-          fetch-depth: 0 # 전체 히스토리 가져오기
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -26,14 +27,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci # package-lock.json 기반으로 의존성 설치
+        run: npm ci
 
       - name: Build React app
-        run: DISABLE_ESLINT_PLUGIN=true npm run build # React 앱 빌드
+        run: DISABLE_ESLINT_PLUGIN=true npm run build
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest .  # Docker 이미지 빌드
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -47,7 +48,7 @@ jobs:
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest  # ECR에 푸시
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,10 +58,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 추가
-          persist-credentials: true # 자격증명 유지
-          fetch-depth: 0 # 전체 히스토리 가져오기
-          ref: doyeon-action # 명시적으로 브랜치 지정
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+          ref: doyeon-action
+          clean: false # 기존 변경사항 유지
 
       - name: Configure AWS CLI
         run: |
@@ -80,8 +82,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git config pull.rebase true
+          git config --global pull.rebase true
           git fetch origin
+          git checkout doyeon-action
           git reset --hard origin/doyeon-action
           git add k8s/frontend-deployment.yaml
           git commit -m "Update image tag to latest version" || echo "No changes to commit"

@@ -18,6 +18,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 추가
           persist-credentials: true # 자격증명 유지
+          fetch-depth: 0 # 전체 히스토리 가져오기
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -54,15 +55,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 추가
           persist-credentials: true # 자격증명 유지
+          fetch-depth: 0 # 전체 히스토리 가져오기
+          ref: doyeon-action # 명시적으로 브랜치 지정
 
       - name: Configure AWS CLI
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_access-key-id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret-access-key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ secrets.AWS_REGION }}
 
       - name: Update kubeconfig for EKS
@@ -73,13 +76,14 @@ jobs:
         run: |
           sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-deployment.yaml
 
-      - name: Commit and push changes
+      - name: Git operations
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git pull origin doyeon-action --rebase
           git add k8s/frontend-deployment.yaml
           git commit -m "Update image tag to latest version" || echo "No changes to commit"
-          git push
+          git push origin doyeon-action
 
       - name: Deploy ArgoCD Applications
         run: |

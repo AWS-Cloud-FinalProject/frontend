@@ -3,6 +3,11 @@ kind: Application
 metadata:
   name: frontend-app
   namespace: argocd
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: apps
+    meta.helm.sh/release-namespace: argocd
 spec:
   project: default
   source:

@@ -1,6 +1,12 @@
 repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
+
 targetRevision: develop
+
 frontend:
   image:
     repository: front-test
     tag: ${LATEST_TAG}
+
+service:
+  type: LoadBalancer
+  port: 80

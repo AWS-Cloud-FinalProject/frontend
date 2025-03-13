@@ -36,7 +36,7 @@ const SignIn = () => {
     <div className='page column'>
       <div className='box login-box input-form'>
         <img src={wiaryLogo} alt='logo' />
-        <span>로그인 v0.0.4</span>
+        <span>로그인 v0.0.5</span>
         <div className='row'>
           <div className='column'>
             <input

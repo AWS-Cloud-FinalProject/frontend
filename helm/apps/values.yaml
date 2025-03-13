@@ -1,6 +1,6 @@
 repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
 
-targetRevision: develop
+targetRevision: production
 
 frontend:
   image:

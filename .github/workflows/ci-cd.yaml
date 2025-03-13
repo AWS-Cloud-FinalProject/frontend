@@ -3,7 +3,7 @@ name: React CI/CD with Docker and EKS
 on:
   push:
     branches:
-      - develop
+      - production
 
 permissions:
   contents: write
@@ -123,7 +123,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
           fetch-depth: 0
-          ref: develop
+          ref: production
           clean: false
 
       - name: Configure AWS Credentials
@@ -152,7 +152,7 @@ jobs:
           # Create values override file for apps chart
           cat > helm/apps/values.yaml << EOF
           repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-          targetRevision: develop
+          targetRevision: production
           frontend:
             image:
               repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test

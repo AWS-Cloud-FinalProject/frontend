@@ -6,15 +6,15 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git # 여기에 실제 GitHub 저장소 URL을 입력하세요
-    targetRevision: doyeon-action # doyeon-action 브랜치 추적
+    repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
+    targetRevision: doyeon-action
     path: k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: default
   syncPolicy:
     automated:
-      prune: true # 더 이상 필요없는 리소스 자동 제거
-      selfHeal: true # 수동 변경된 클러스터 상태를 자동으로 복구
+      prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true # 네임스페이스가 없는 경우 자동 생성
+      - CreateNamespace=true

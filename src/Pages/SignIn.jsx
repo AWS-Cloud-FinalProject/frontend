@@ -36,7 +36,7 @@ const SignIn = () => {
     <div className='page column'>
       <div className='box login-box input-form'>
         <img src={wiaryLogo} alt='logo' />
-        <span>로그인</span>
+        <span>로그인 v0.0.16</span>
         <div className='row'>
           <div className='column'>
             <input
@@ -58,9 +58,9 @@ const SignIn = () => {
             Login
           </button>
         </div>
-        <p className='go-sign-up' onClick={() => navigate('/sign-up')}>
+        <button className='go-sign-up' onClick={() => navigate('/sign-up')}>
           회원가입
-        </p>
+        </button>
       </div>
     </div>
   )

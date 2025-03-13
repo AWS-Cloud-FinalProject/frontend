@@ -199,36 +199,41 @@ const DiaryModal = ({ setModal, selectedDate }) => {
               onChange={e => changeDiaryData(e, 'photo')}
             />
             <div className='create-diary-emotion row'>
-              <img
-                src={goood}
-                alt='아주 좋음'
-                onClick={() => changeDiaryData('GOOOD', 'emotion')}
-                className={diaryData?.emotion === 'GOOOD' ? 'active' : ''}
-              />
-              <img
-                src={good}
-                alt='좋음'
-                onClick={() => changeDiaryData('GOOD', 'emotion')}
-                className={diaryData?.emotion === 'GOOD' ? 'active' : ''}
-              />
-              <img
-                src={soso}
-                alt='그냥 그럼'
-                onClick={() => changeDiaryData('SOSO', 'emotion')}
-                className={diaryData?.emotion === 'SOSO' ? 'active' : ''}
-              />
-              <img
-                src={bad}
-                alt='나쁨'
-                onClick={() => changeDiaryData('BAD', 'emotion')}
-                className={diaryData?.emotion === 'BAD' ? 'active' : ''}
-              />
-              <img
-                src={baaad}
-                alt='매우 나쁨'
-                onClick={() => changeDiaryData('BAAAD', 'emotion')}
-                className={diaryData?.emotion === 'BAAAD' ? 'active' : ''}
-              />
+              <button onClick={() => changeDiaryData('GOOOD', 'emotion')}>
+                <img
+                  src={goood}
+                  alt='아주 좋음'
+                  className={diaryData?.emotion === 'GOOOD' ? 'active' : ''}
+                />
+              </button>
+              <button onClick={() => changeDiaryData('GOOD', 'emotion')}>
+                <img
+                  src={good}
+                  alt='좋음'
+                  className={diaryData?.emotion === 'GOOD' ? 'active' : ''}
+                />
+              </button>
+              <button onClick={() => changeDiaryData('SOSO', 'emotion')}>
+                <img
+                  src={soso}
+                  alt='그냥 그럼'
+                  className={diaryData?.emotion === 'SOSO' ? 'active' : ''}
+                />
+              </button>
+              <button onClick={() => changeDiaryData('BAD', 'emotion')}>
+                <img
+                  src={bad}
+                  alt='나쁨'
+                  className={diaryData?.emotion === 'BAD' ? 'active' : ''}
+                />
+              </button>
+              <button onClick={() => changeDiaryData('BAAAD', 'emotion')}>
+                <img
+                  src={baaad}
+                  alt='매우 나쁨'
+                  className={diaryData?.emotion === 'BAAAD' ? 'active' : ''}
+                />
+              </button>
             </div>
             <textarea
               placeholder='일기 내용'

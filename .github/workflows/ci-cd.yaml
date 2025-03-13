@@ -132,19 +132,9 @@ jobs:
               tag: ${LATEST_TAG}
           EOF
 
-          # Create values file for frontend chart
-          cat > helm/frontend/values.yaml << EOF
-          replicaCount: 1
+          # Debug: Show the generated values file
+          echo "Generated values.yaml:"
+          cat helm/apps/values.yaml
 
-          image:
-            repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
-            tag: ${LATEST_TAG}
-            pullPolicy: Always
-
-          service:
-            type: LoadBalancer
-            port: 80
-          EOF
-
-          # Apply the apps chart using Helm
-          helm upgrade --install apps helm/apps -n argocd --create-namespace
+          # Apply the apps chart using Helm with debug output
+          helm upgrade --install apps helm/apps -n argocd --create-namespace --debug

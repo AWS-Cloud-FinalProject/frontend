@@ -11,14 +11,17 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: {{ .Values.repoURL }}
-    targetRevision: {{ .Values.targetRevision }}
+    repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
+    targetRevision: doyeon-action
     path: helm/frontend
     helm:
       values: |
         image:
-          repository: {{ .Values.frontend.image.repository }}
-          tag: {{ .Values.frontend.image.tag }}
+          repository: front-test
+          tag: v0.0.13
+        service:
+          type: LoadBalancer
+          port: 80
   destination:
     server: https://kubernetes.default.svc
     namespace: default

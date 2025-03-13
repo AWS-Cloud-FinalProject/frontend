@@ -80,3 +80,8 @@ jobs:
           git add k8s/frontend-deployment.yaml
           git commit -m "Update image tag to latest version" || echo "No changes to commit"
           git push
+
+      - name: Deploy ArgoCD Applications
+        run: |
+          kubectl apply -f k8s/app-of-apps.yaml -n argocd
+          kubectl apply -f k8s/frontend-application.yaml -n argocd

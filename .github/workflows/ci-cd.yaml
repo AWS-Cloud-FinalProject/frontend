@@ -22,10 +22,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci  # package-lock.json 기반으로 의존성 설치
+        run: npm ci # package-lock.json 기반으로 의존성 설치
 
       - name: Build React app
-        run: DISABLE_ESLINT_PLUGIN=true npm run build  # React 앱 빌드
+        run: DISABLE_ESLINT_PLUGIN=true npm run build # React 앱 빌드
 
       - name: Build Docker image
         run: |
@@ -63,20 +63,14 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Update image in frontend-deployment.yaml
+      - name: Update image tag in deployment
         run: |
-          sed -i 's|image: .*|image: ${{ secrets.ECR_REPOSITORY_URI }}/front-test:latest|' k8s/frontend-deployment.yaml
+          sed -i "s|\${ECR_REPOSITORY_URI}|${{ secrets.ECR_REPOSITORY_URI }}|g" k8s/frontend-deployment.yaml
 
-      - name: Delete Existing FrontEnd
+      - name: Commit and push changes
         run: |
-          kubectl delete deploy frontend-deployment
-          kubectl delete svc frontend-service
-
-      - name: Deploy frontend to EKS
-        run: |
-          kubectl apply -f k8s/frontend-deployment.yaml --validate=false
-          kubectl apply -f k8s/frontend-service.yaml --validate=false
-
-      - name: Wait for rollout to finish
-        run: |
-          kubectl rollout status deployment/frontend-deployment
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add k8s/frontend-deployment.yaml
+          git commit -m "Update image tag to latest version" || echo "No changes to commit"
+          git push

@@ -2,7 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  labels:
+    app: frontend
+    app.kubernetes.io/name: frontend
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -10,9 +14,17 @@ spec:
     metadata:
       labels:
         app: frontend
+        app.kubernetes.io/name: frontend
     spec:
       containers:
         - name: frontend
-          image: 688567288847.dkr.ecr.us-west-2.amazonaws.com/front-test:latest
+          image: ${ECR_REPOSITORY_URI}/front-test:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: '100m'
+              memory: '128Mi'
+            limits:
+              cpu: '200m'
+              memory: '256Mi'

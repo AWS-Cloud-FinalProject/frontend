@@ -117,9 +117,17 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git config --global pull.rebase true
+
+          # Stash any changes first
+          git stash
+
+          # Update local branch
           git fetch origin
           git checkout doyeon-action
           git pull origin doyeon-action --rebase
+
+          # Pop stashed changes and commit
+          git stash pop
           git add k8s/frontend-deployment.yaml
           git commit -m "Update deployment to version ${{ env.LATEST_TAG }}" || echo "No changes to commit"
           git push origin doyeon-action

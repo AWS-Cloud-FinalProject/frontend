@@ -11,14 +11,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-    targetRevision: doyeon-action
+    repoURL: {{ .Values.repoURL }}
+    targetRevision: {{ .Values.targetRevision }}
     path: helm/frontend
     helm:
       values: |
         image:
-          repository: front-test
-          tag: v0.0.13
+          repository: {{ .Values.frontend.image.repository }}
+          tag: {{ .Values.frontend.image.tag }}
         service:
           type: LoadBalancer
           port: 80

@@ -134,7 +134,7 @@ jobs:
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend:latest
 
   deploy:
-    needs: [docker]
+    needs: [docker, version]
     runs-on: ubuntu-latest
 
     steps:

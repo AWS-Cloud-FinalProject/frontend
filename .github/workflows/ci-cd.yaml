@@ -144,7 +144,7 @@ jobs:
             kubectl label nodes $NODE role=front-node-group --overwrite
           done
       
-          - name: Cleanup old ArgoCD Applications
+      - name: Cleanup old ArgoCD Applications
         run: |
           kubectl delete application frontend-app -n argocd --ignore-not-found=true
           kubectl delete application root-app -n argocd --ignore-not-found=true --force --grace-period=0

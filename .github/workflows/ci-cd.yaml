@@ -163,7 +163,7 @@ jobs:
 
           # Create values file for frontend chart
           cat > helm/frontend/values.yaml << EOF
-          replicaCount: 1
+          replicaCount: 3
 
           image:
             repository: ${{ secrets.ECR_REPOSITORY_URI }}/front-test
@@ -182,7 +182,7 @@ jobs:
           cat helm/frontend/values.yaml
 
           # Apply the apps chart using Helm with debug output
-          helm upgrade --install apps helm/apps -n argocd --create-namespace --debug
+          helm upgrade --install front-apps helm/apps -n argocd --create-namespace --debug
 
       - name: Cleanup old ReplicaSets
         run: |

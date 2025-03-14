@@ -137,7 +137,14 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Cleanup old ArgoCD Applications
+      - name: Label EKS Nodes
+        run: |
+          NODES=$(kubectl get nodes -l eks.amazonaws.com/nodegroup=front-node-group -o jsonpath='{.items[*].metadata.name}')
+          for NODE in $NODES; do
+            kubectl label nodes $NODE role=front-node-group --overwrite
+          done
+      
+          - name: Cleanup old ArgoCD Applications
         run: |
           kubectl delete application frontend-app -n argocd --ignore-not-found=true
           kubectl delete application root-app -n argocd --ignore-not-found=true --force --grace-period=0

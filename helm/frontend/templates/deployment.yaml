@@ -17,6 +17,8 @@ spec:
         app: frontend
         app.kubernetes.io/name: frontend
     spec:
+      nodeSelector:
+        role: front-node-group
       containers:
         - name: frontend
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

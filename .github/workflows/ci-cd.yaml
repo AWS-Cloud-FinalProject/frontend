@@ -130,7 +130,7 @@ jobs:
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/front-test:${{ needs.version.outputs.new_tag }}
 
   deploy:
-    needs: [docker, version]
+    needs: [docker]
     runs-on: ubuntu-latest
 
     steps:

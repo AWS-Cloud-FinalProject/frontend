@@ -134,7 +134,7 @@ const Calendar = () => {
   }, [currentMonth, currentYear, calendarData])
 
   useEffect(() => {
-    if (!getCookie('myToken')) return navigate('/sign-in')
+    if (!getCookie('myToken')) return navigate('/')
     if (!modal) getDiaryFn()
   }, [modal])
 

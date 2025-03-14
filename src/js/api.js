@@ -66,7 +66,7 @@ const errorHandling = async error => {
   }
 }
 
-const apiURL = 'http://a86d63ac582364d9a9c690c61de60c7b-1846274955.us-west-2.elb.amazonaws.com/api'
+const apiURL = 'http://a218f90e8bf364e24a580b8c5521596e-e905e18b42f23f2b.elb.us-west-2.amazonaws.com/api'
 
 //~ 토큰 재발급
 const tokenReissue = async () => {

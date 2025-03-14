@@ -143,11 +143,6 @@ jobs:
           for NODE in $NODES; do
             kubectl label nodes $NODE role=front-node-group --overwrite
           done
-      
-      - name: Cleanup old ArgoCD Applications
-        run: |
-          kubectl delete application frontend-app -n argocd --ignore-not-found=true
-          kubectl delete application root-app -n argocd --ignore-not-found=true --force --grace-period=0
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -188,7 +183,7 @@ jobs:
 
           # Apply the apps chart using Helm with debug output
           helm upgrade --install apps helm/apps -n argocd --create-namespace --debug
-      
+
       - name: Cleanup old ReplicaSets
         run: |
           # Get all ReplicaSets except the latest one and delete them

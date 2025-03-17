@@ -123,9 +123,6 @@ jobs:
           name: nginx-config
           path: .
 
-      - name: Verify files  # 파일이 정상적으로 다운로드되었는지 확인
-        run: ls -al
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:

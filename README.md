@@ -68,9 +68,14 @@
 4. AWS ECR에 이미지가 푸시된 것을 ArgoCD에서 감지 후 푸시된 이미지로 EKS에 배포
 
 ## 사용된 AWS 서비스
+* AWS IAM
+* AWS Cognito
+* AWS RDS
+* AWS S3
 * AWS ECR
 * AWS EKS
 * AWS EC2
 * AWS VPC
 * AWS Route 53
-* 
+* AWS WAF
+* AWS CloudWatch

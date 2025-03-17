@@ -16,6 +16,15 @@ const App = () => {
         <Route path='/home/diary' element={<Calendar />} />
         <Route path='/home/todo' element={<TodoBoard />} />
         <Route
+          path='/api/*'
+          element={
+            <Navigate
+              to={getCookie('myToken') ? '/home/diary' : '/'}
+              replace
+            />
+          }
+        />
+        <Route
           path='*'
           element={
             <Navigate

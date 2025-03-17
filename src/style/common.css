@@ -332,12 +332,9 @@
   width: 100%;
   justify-content: flex-start;
 }
-.page .community-box .row .userId, .page .community-box .row .createdAt {
+.page .community-box .row .userId {
   color: dimgray;
   font-family: "NotoSansT", "맑은 고딕", sans-serif;
-}
-.page .community-box .row .createdAt {
-  margin: 0 20px;
 }
 .page .community-box .row .edit-btn, .page .community-box .row .delete-btn {
   margin: 0 5px;

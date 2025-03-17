@@ -104,12 +104,11 @@ const Community = () => {
   }
 
   const renderPosts = () => {
-    return posts?.map(({ user_id, created_at, contents, mine, photo, id }) => {
+    return posts?.map(({ user_id, contents, mine, photo, id }) => {
       return (
         <div className='column community-box' key={id}>
           <div className='row'>
             <p className='userId'>@{user_id}</p>
-            <p className='createdAt'>{created_at?.replace('T', ' ')}</p>
             {mine ? (
               <>
                 <button

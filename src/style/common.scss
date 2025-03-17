@@ -371,13 +371,9 @@
       width: 100%;
       justify-content: flex-start;
 
-      .userId, .createdAt {
+      .userId {
         color: dimgray;
         font-family: $thinFont;
-      }
-
-      .createdAt {
-        margin: 0 20px;
       }
 
       .edit-btn, .delete-btn {

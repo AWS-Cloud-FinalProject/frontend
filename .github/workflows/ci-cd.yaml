@@ -110,10 +110,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: true
-          fetch-depth: 0
 
       - name: Download build output
         uses: actions/download-artifact@v4
@@ -121,29 +117,22 @@ jobs:
           name: build-output
           path: build/
 
-      - name: Download Nginx config
+      - name: Download Nginx config  # Nginx 설정 파일 가져오기
         uses: actions/download-artifact@v4
         with:
           name: nginx-config
           path: .
 
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Verify files  # 파일이 정상적으로 다운로드되었는지 확인
+        run: ls -al
 
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build and push Docker image
         run: |
-          # Build image once
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }} -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:latest .
-
-          # Push both tags
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }} .
+          
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }}
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend:latest
 

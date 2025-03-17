@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+## File Tree
+```
+📦frontend
+ ┣ 📂.github
+ ┃ ┗ 📂workflows
+ ┃ ┃ ┗ 📜ci-cd.yaml
+ ┣ 📂helm
+ ┃ ┣ 📂apps
+ ┃ ┃ ┣ 📂templates
+ ┃ ┃ ┃ ┗ 📜frontend-application.yaml
+ ┃ ┃ ┣ 📜Chart.yaml
+ ┃ ┃ ┗ 📜values.yaml
+ ┃ ┗ 📂frontend
+ ┃ ┃ ┣ 📂templates
+ ┃ ┃ ┃ ┣ 📜deployment.yaml
+ ┃ ┃ ┃ ┗ 📜service.yaml
+ ┃ ┃ ┣ 📜.helmignore
+ ┃ ┃ ┣ 📜Chart.yaml
+ ┃ ┃ ┗ 📜values.yaml
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜logo192.png
+ ┃ ┣ 📜logo512.png
+ ┃ ┣ 📜manifest.json
+ ┃ ┗ 📜robots.txt
+ ┣ 📂src
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📜DiaryModal.jsx
+ ┃ ┃ ┣ 📜Navigator.jsx
+ ┃ ┃ ┗ 📜UserEditModal.jsx
+ ┃ ┣ 📂Images
+ ┃ ┃ ┣ 📂emotion
+ ┃ ┃ ┃ ┣ 📜BAAAD.png
+ ┃ ┃ ┃ ┣ 📜BAD.png
+ ┃ ┃ ┃ ┣ 📜GOOD.png
+ ┃ ┃ ┃ ┣ 📜GOOOD.png
+ ┃ ┃ ┃ ┗ 📜SOSO.png
+ ┃ ┃ ┣ 📜wiary-logo-white.svg
+ ┃ ┃ ┗ 📜wiary-logo.svg
+ ┃ ┣ 📂js
+ ┃ ┃ ┣ 📜api.js
+ ┃ ┃ ┗ 📜cookie.js
+ ┃ ┣ 📂Pages
+ ┃ ┃ ┣ 📜Calendar.jsx
+ ┃ ┃ ┣ 📜SignIn.jsx
+ ┃ ┃ ┣ 📜SignUp.jsx
+ ┃ ┃ ┗ 📜TodoBoard.jsx
+ ┃ ┣ 📂style
+ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┣ 📜NotoSansKR-Black.otf
+ ┃ ┃ ┃ ┣ 📜NotoSansKR-Bold.otf
+ ┃ ┃ ┃ ┣ 📜NotoSansKR-Medium.otf
+ ┃ ┃ ┃ ┣ 📜NotoSansKR-Regular.otf
+ ┃ ┃ ┃ ┗ 📜NotoSansKR-Thin.otf
+ ┃ ┃ ┣ 📜common.css
+ ┃ ┃ ┣ 📜common.css.map
+ ┃ ┃ ┣ 📜common.scss
+ ┃ ┃ ┣ 📜font.css
+ ┃ ┃ ┣ 📜reset.css
+ ┃ ┃ ┗ 📜_style.scss
+ ┃ ┣ 📜App.css
+ ┃ ┣ 📜App.js
+ ┃ ┣ 📜App.test.js
+ ┃ ┣ 📜index.css
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜logo.svg
+ ┃ ┣ 📜reportWebVitals.js
+ ┃ ┗ 📜setupTests.js
+ ┣ 📜.dockerignore
+ ┣ 📜.eslintrc
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜Dockerfile
+ ┣ 📜jsconfig.json
+ ┣ 📜nginx.conf
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┗ 📜README.md
+ ```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## CI/CD 파이프라인
+1. GitHub에 코드를 Push
+2. `.github/workflows/ci-cd.yaml` 이 실행 되면서 GitHub Actions 실행
+3. GitHub Actions에서 AWS ECR로 이미지 푸시
+4. AWS ECR에 이미지가 푸시된 것을 ArgoCD에서 감지 후 푸시된 이미지로 EKS에 배포
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 사용된 AWS 서비스
+* AWS ECR
+* AWS EKS
+* AWS EC2
+* AWS VPC

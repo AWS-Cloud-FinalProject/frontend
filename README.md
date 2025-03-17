@@ -19,26 +19,12 @@
  ┃ ┃ ┗ 📜values.yaml
  ┣ 📂node_modules
  ┣ 📂public
- ┃ ┣ 📜favicon.ico
- ┃ ┣ 📜index.html
- ┃ ┣ 📜logo192.png
- ┃ ┣ 📜logo512.png
- ┃ ┣ 📜manifest.json
- ┃ ┗ 📜robots.txt
  ┣ 📂src
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📜DiaryModal.jsx
  ┃ ┃ ┣ 📜Navigator.jsx
  ┃ ┃ ┗ 📜UserEditModal.jsx
  ┃ ┣ 📂Images
- ┃ ┃ ┣ 📂emotion
- ┃ ┃ ┃ ┣ 📜BAAAD.png
- ┃ ┃ ┃ ┣ 📜BAD.png
- ┃ ┃ ┃ ┣ 📜GOOD.png
- ┃ ┃ ┃ ┣ 📜GOOOD.png
- ┃ ┃ ┃ ┗ 📜SOSO.png
- ┃ ┃ ┣ 📜wiary-logo-white.svg
- ┃ ┃ ┗ 📜wiary-logo.svg
  ┃ ┣ 📂js
  ┃ ┃ ┣ 📜api.js
  ┃ ┃ ┗ 📜cookie.js
@@ -49,11 +35,6 @@
  ┃ ┃ ┗ 📜TodoBoard.jsx
  ┃ ┣ 📂style
  ┃ ┃ ┣ 📂fonts
- ┃ ┃ ┃ ┣ 📜NotoSansKR-Black.otf
- ┃ ┃ ┃ ┣ 📜NotoSansKR-Bold.otf
- ┃ ┃ ┃ ┣ 📜NotoSansKR-Medium.otf
- ┃ ┃ ┃ ┣ 📜NotoSansKR-Regular.otf
- ┃ ┃ ┃ ┗ 📜NotoSansKR-Thin.otf
  ┃ ┃ ┣ 📜common.css
  ┃ ┃ ┣ 📜common.css.map
  ┃ ┃ ┣ 📜common.scss

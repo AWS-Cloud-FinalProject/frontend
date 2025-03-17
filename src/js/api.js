@@ -3,6 +3,7 @@ import { getCookie, removeCookie, setCookie } from './cookie'
 
 const header = () => ({
   headers: {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'access-token': getCookie('myToken'),
   },
@@ -10,6 +11,7 @@ const header = () => ({
 
 const formDataHeader = () => ({
   headers: {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'multipart/form-data',
     'access-token': getCookie('myToken'),
   },

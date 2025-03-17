@@ -41,6 +41,13 @@ jobs:
           name: build-output
           path: build/
 
+      - name: Upload Nginx config
+        uses: actions/upload-artifact@v4
+        with:
+          name: nginx-config
+          path: nginx.conf
+
+
   version:
     runs-on: ubuntu-latest
     outputs:
@@ -113,6 +120,13 @@ jobs:
         with:
           name: build-output
           path: build/
+
+      - name: Download Nginx config
+        uses: actions/download-artifact@v4
+        with:
+          name: nginx-config
+          path: .
+
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -216,9 +230,9 @@ jobs:
           cat helm/frontend/values.yaml
 
           # Apply the apps chart using Helm with debug output
-          helm upgrade --install front-apps helm/apps -n argocd --create-namespace --debug
-
+          helm upgrade --install front-apps helm/apps -n argocd --create-namespace --wait --debug
+   
       - name: Cleanup old ReplicaSets
         run: |
-          # Get all ReplicaSets except the latest one and delete them
-          kubectl get replicaset -l app=frontend -o name | tail -n +2 | xargs -r kubectl delete
+          # Get all old ReplicaSets except the latest one and delete them
+          kubectl get rs --sort-by=.metadata.creationTimestamp -l app=frontend -o name | head -n -1 | xargs -r kubectl delete

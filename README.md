@@ -72,3 +72,5 @@
 * AWS EKS
 * AWS EC2
 * AWS VPC
+* AWS Route 53
+* 

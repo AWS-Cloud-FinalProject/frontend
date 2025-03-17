@@ -1,8 +1,16 @@
-import axios from 'axios'
+import axios, { post } from 'axios'
 import { getCookie, removeCookie, setCookie } from './cookie'
+
+const commonHeader = () => ({
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type': 'application/json',
+  },
+})
 
 const header = () => ({
   headers: {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'access-token': getCookie('myToken'),
   },
@@ -10,6 +18,7 @@ const header = () => ({
 
 const formDataHeader = () => ({
   headers: {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'multipart/form-data',
     'access-token': getCookie('myToken'),
   },
@@ -69,6 +78,7 @@ const errorHandling = async error => {
 //~ 토큰 재발급
 const tokenReissue = async () => {
   const headers = {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'refresh-token': getCookie('rfToken'),
   }
@@ -86,7 +96,11 @@ const tokenReissue = async () => {
 
 export const signIn = async (id, pw) => {
   try {
-    return await axios.post('/api/sign-in', { id: id, password: pw })
+    return await axios.post(
+      '/api/sign-in',
+      { id: id, password: pw },
+      commonHeader()
+    )
   } catch (error) {
     return await errorHandling(error)
   }
@@ -94,12 +108,16 @@ export const signIn = async (id, pw) => {
 
 export const signUp = async (id, name, pw, email) => {
   try {
-    return await axios.post('/api/sign-up', {
-      id: id,
-      name: name,
-      password: pw,
-      email: email
-    })
+    return await axios.post(
+      '/api/sign-up',
+      {
+        id: id,
+        name: name,
+        password: pw,
+        email: email,
+      },
+      commonHeader()
+    )
   } catch (error) {
     return await errorHandling(error)
   }
@@ -181,7 +199,7 @@ export const getDiaryDetail = async date => {
 
 export const createDiary = async formData => {
   try {
-    return await axios.post('/api/add-diary', formData, formDataHeader())
+    return await axios.post('/api/create-diary', formData, formDataHeader())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -198,6 +216,42 @@ export const deleteDiary = async date => {
 export const editDiary = async formData => {
   try {
     return await axios.patch('/api/edit-diary', formData, formDataHeader())
+  } catch (error) {
+    return await errorHandling(error)
+  }
+}
+
+export const getCommunityPosts = async () => {
+  try {
+    return await axios.get(`/api/get-posts`, header())
+  } catch (error) {
+    return await errorHandling(error)
+  }
+}
+
+export const createPost = async formData => {
+  try {
+    return await axios.post('/api/create-post', formData, formDataHeader())
+  } catch (error) {
+    return await errorHandling(error)
+  }
+}
+
+export const deletePost = async post_id => {
+  try {
+    return await axios.delete(`/api/delete-post/${post_id}`, header())
+  } catch (error) {
+    return await errorHandling(error)
+  }
+}
+
+export const updatePost = async (post_id, formData) => {
+  try {
+    return await axios.patch(
+      `/api/edit-post/${post_id}`,
+      formData,
+      formDataHeader()
+    )
   } catch (error) {
     return await errorHandling(error)
   }

@@ -11,16 +11,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route
-          path='/'
-          element={
-            <Navigate
-              to={getCookie('myToken') ? '/home/diary' : '/sign-in'}
-              replace
-            />
-          }
-        />
-        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/home/diary' element={<Calendar />} />
         <Route path='/home/todo' element={<TodoBoard />} />
@@ -28,7 +19,7 @@ const App = () => {
           path='*'
           element={
             <Navigate
-              to={getCookie('myToken') ? '/home/diary' : '/sign-in'}
+              to={getCookie('myToken') ? '/home/diary' : '/'}
               replace
             />
           }

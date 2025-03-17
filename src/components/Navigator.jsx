@@ -21,7 +21,7 @@ const Navigator = () => {
   const loginFn = () => {
     removeCookie('myToken', { path: '/' })
     removeCookie('rfToken', { path: '/' })
-    navigate('/sign-in')
+    navigate('/')
   }
 
   useEffect(() => {

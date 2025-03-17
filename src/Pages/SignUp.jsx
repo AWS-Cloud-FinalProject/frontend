@@ -26,7 +26,7 @@ const SignUp = () => {
           typeof result === 'object' &&
           result?.data?.message === 'User created successfully'
         ) {
-          navigate('/sign-in')
+          navigate('/')
         }
       }
     }

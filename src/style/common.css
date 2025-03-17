@@ -253,6 +253,106 @@
   border-radius: 1em;
   font-size: 12px;
 }
+.page .community {
+  z-index: 0;
+  width: 100%;
+  margin: 100px 0 80px 0;
+  min-height: 100vh;
+  justify-content: flex-start;
+}
+.page .community .community-top-box {
+  width: 90%;
+  justify-content: space-between;
+}
+.page .community .community-top-box h2 {
+  width: 96%;
+  text-align: left;
+  font-family: "NotoSansBlack", "맑은 고딕", sans-serif;
+}
+.page .community .community-top-box button {
+  padding: 2px 13px;
+  background-color: #3e3ec1;
+  color: white;
+  font-size: 30px;
+  border-radius: 5em;
+  font-family: "NotoSansB", "맑은 고딕", sans-serif;
+}
+.page .community-add-box, .page .community-edit-box {
+  width: 90%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1rem;
+  margin: 10px 0;
+  padding: 10px;
+  align-items: flex-start;
+}
+.page .community-add-box textarea, .page .community-edit-box textarea {
+  width: 100%;
+  border-radius: 1rem;
+  padding: 16px;
+  border: none;
+  resize: none;
+}
+.page .community-add-box textarea:focus, .page .community-edit-box textarea:focus {
+  outline: none;
+}
+.page .community-add-box .preview-photo, .page .community-edit-box .preview-photo {
+  width: 300px;
+  margin: 20px 0;
+}
+.page .community-add-box .upload, .page .community-edit-box .upload {
+  width: 100%;
+  justify-content: space-between;
+}
+.page .community-add-box .upload .upload-img-btn, .page .community-edit-box .upload .upload-img-btn {
+  cursor: pointer;
+  background-color: #3e3ec1;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 1rem;
+  font-size: 14px;
+}
+.page .community-add-box .upload #photo, .page .community-edit-box .upload #photo {
+  display: none;
+}
+.page .community-add-box button, .page .community-edit-box button {
+  background-color: #3e3ec1;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 1rem;
+}
+.page .community-box {
+  width: 90%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1rem;
+  padding: 30px;
+  margin: 10px 0;
+  align-items: flex-start;
+}
+.page .community-box .row {
+  width: 100%;
+  justify-content: flex-start;
+}
+.page .community-box .row .userId, .page .community-box .row .createdAt {
+  color: dimgray;
+  font-family: "NotoSansT", "맑은 고딕", sans-serif;
+}
+.page .community-box .row .createdAt {
+  margin: 0 20px;
+}
+.page .community-box .row .edit-btn, .page .community-box .row .delete-btn {
+  margin: 0 5px;
+}
+.page .community-box .row .edit-btn svg, .page .community-box .row .delete-btn svg {
+  fill: gray;
+}
+.page .community-box .post-img {
+  width: 300px;
+  margin: 20px 0;
+}
+.page .community-box .contents {
+  width: 100%;
+  justify-content: flex-start;
+}
 
 .input-form span {
   font-family: "NotoSansB", "맑은 고딕", sans-serif;
@@ -339,7 +439,7 @@
 .navigator .site-map div {
   width: 90%;
   text-align: center;
-  padding: 100px 0;
+  padding: 50px 0;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 5%;
   cursor: pointer;

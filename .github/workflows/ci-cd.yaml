@@ -117,14 +117,11 @@ jobs:
           name: build-output
           path: build/
 
-      - name: Download Nginx config
+      - name: Download Nginx config  # Nginx 설정 파일 가져오기
         uses: actions/download-artifact@v4
         with:
           name: nginx-config
           path: .
-
-      - name: Move Nginx config to build context  # 빌드 컨텍스트에 복사
-        run: mv nginx.conf build/
 
       - name: Verify files  # 파일이 정상적으로 다운로드되었는지 확인
         run: ls -al

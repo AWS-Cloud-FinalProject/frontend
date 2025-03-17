@@ -117,7 +117,7 @@ jobs:
           name: build-output
           path: build/
 
-      - name: Download Nginx config  # Nginx 설정 파일 가져오기
+      - name: Download Nginx config
         uses: actions/download-artifact@v4
         with:
           name: nginx-config
@@ -138,8 +138,10 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }} .
-          
+          # Build image once
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }} -t ${{ secrets.ECR_REPOSITORY_URI }}/frontend:latest .
+
+          # Push both tags
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend:${{ needs.version.outputs.new_tag }}
           docker push ${{ secrets.ECR_REPOSITORY_URI }}/frontend:latest
 

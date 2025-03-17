@@ -1,6 +1,13 @@
 import axios from 'axios'
 import { getCookie, removeCookie, setCookie } from './cookie'
 
+const commonHeader = () => ({
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type': 'application/json',
+  },
+})
+
 const header = () => ({
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
@@ -89,7 +96,11 @@ const tokenReissue = async () => {
 
 export const signIn = async (id, pw) => {
   try {
-    return await axios.post(`/api/sign-in`, { id: id, password: pw }, header())
+    return await axios.post(
+      `/api/sign-in`,
+      { id: id, password: pw },
+      commonHeader()
+    )
   } catch (error) {
     return await errorHandling(error)
   }
@@ -97,12 +108,16 @@ export const signIn = async (id, pw) => {
 
 export const signUp = async (id, name, pw, email) => {
   try {
-    return await axios.post(`/api/sign-up`, {
-      id: id,
-      name: name,
-      password: pw,
-      email: email
-    }, header())
+    return await axios.post(
+      `/api/sign-up`,
+      {
+        id: id,
+        name: name,
+        password: pw,
+        email: email,
+      },
+      commonHeader()
+    )
   } catch (error) {
     return await errorHandling(error)
   }

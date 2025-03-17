@@ -5,6 +5,7 @@ import {
   RiLogoutBoxRLine,
   RiCalendarTodoFill,
   RiTodoLine,
+  RiUserCommunityFill
 } from 'react-icons/ri'
 import { removeCookie } from 'js/cookie'
 import UserEditModal from './UserEditModal'
@@ -48,6 +49,15 @@ const Navigator = () => {
             />
             <span className={currentPage === 'todo' ? 'active' : ''}>
               투두리스트
+            </span>
+          </div>
+          <div className='column' onClick={() => navigate('/home/community')}>
+            <RiUserCommunityFill
+              size={80}
+              className={currentPage === 'community' ? 'active' : ''}
+            />
+            <span className={currentPage === 'community' ? 'active' : ''}>
+              커뮤니티
             </span>
           </div>
         </div>

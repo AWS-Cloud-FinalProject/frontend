@@ -1,16 +1,8 @@
 import axios from 'axios'
 import { getCookie, removeCookie, setCookie } from './cookie'
 
-const commonHeader = () => ({
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/json',
-  },
-})
-
 const header = () => ({
   headers: {
-    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'access-token': getCookie('myToken'),
   },
@@ -18,7 +10,6 @@ const header = () => ({
 
 const formDataHeader = () => ({
   headers: {
-    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'multipart/form-data',
     'access-token': getCookie('myToken'),
   },
@@ -78,7 +69,6 @@ const errorHandling = async error => {
 //~ 토큰 재발급
 const tokenReissue = async () => {
   const headers = {
-    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'refresh-token': getCookie('rfToken'),
   }
@@ -96,11 +86,7 @@ const tokenReissue = async () => {
 
 export const signIn = async (id, pw) => {
   try {
-    return await axios.post(
-      `/api/sign-in`,
-      { id: id, password: pw },
-      commonHeader()
-    )
+    return await axios.post('/api/sign-in', { id: id, password: pw })
   } catch (error) {
     return await errorHandling(error)
   }
@@ -108,16 +94,12 @@ export const signIn = async (id, pw) => {
 
 export const signUp = async (id, name, pw, email) => {
   try {
-    return await axios.post(
-      `/api/sign-up`,
-      {
-        id: id,
-        name: name,
-        password: pw,
-        email: email,
-      },
-      commonHeader()
-    )
+    return await axios.post('/api/sign-up', {
+      id: id,
+      name: name,
+      password: pw,
+      email: email
+    })
   } catch (error) {
     return await errorHandling(error)
   }
@@ -126,7 +108,7 @@ export const signUp = async (id, name, pw, email) => {
 export const editPw = async (pw, new_pw) => {
   try {
     return await axios.patch(
-      `/api/edit-pw`,
+      '/api/edit-pw',
       { password: pw, new_password: new_pw },
       header()
     )
@@ -138,7 +120,7 @@ export const editPw = async (pw, new_pw) => {
 export const withdraw = async pw => {
   const headers = header()
   try {
-    return await axios.delete(`/api/withdraw`, {
+    return await axios.delete('/api/withdraw', {
       headers: headers.headers,
       data: {
         password: pw,
@@ -151,7 +133,7 @@ export const withdraw = async pw => {
 
 export const getTodo = async () => {
   try {
-    return await axios.get(`/api/get-todo`, header())
+    return await axios.get('/api/get-todo', header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -159,7 +141,7 @@ export const getTodo = async () => {
 
 export const createTodo = async data => {
   try {
-    return await axios.post(`/api/create-todo`, data, header())
+    return await axios.post('/api/create-todo', data, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -175,7 +157,7 @@ export const deleteTodo = async todo_num => {
 
 export const editTodo = async data => {
   try {
-    return await axios.patch(`/api/edit-todo`, data, header())
+    return await axios.patch('/api/edit-todo', data, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -199,7 +181,7 @@ export const getDiaryDetail = async date => {
 
 export const createDiary = async formData => {
   try {
-    return await axios.post(`/api/add-diary`, formData, formDataHeader())
+    return await axios.post('/api/add-diary', formData, formDataHeader())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -215,7 +197,7 @@ export const deleteDiary = async date => {
 
 export const editDiary = async formData => {
   try {
-    return await axios.patch(`/api/edit-diary`, formData, formDataHeader())
+    return await axios.patch('/api/edit-diary', formData, formDataHeader())
   } catch (error) {
     return await errorHandling(error)
   }

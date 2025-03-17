@@ -26,7 +26,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
     photo: '',
   })
 
-  let prevent = false
+  let prevent = false;
 
   const viewDiaryDetail = async () => {
     if (prevent) return

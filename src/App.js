@@ -4,7 +4,8 @@ import Calendar from 'Pages/Calendar'
 import SignIn from 'Pages/SignIn'
 import SignUp from 'Pages/SignUp'
 import TodoBoard from 'Pages/TodoBoard'
-import { getCookie } from './js/cookie'
+import Community from 'Pages/Community'
+import { getCookie } from 'js/cookie'
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/home/diary' element={<Calendar />} />
         <Route path='/home/todo' element={<TodoBoard />} />
+        <Route path='/home/community' element={<Community />} />
         <Route
           path='*'
           element={

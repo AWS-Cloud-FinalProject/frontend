@@ -279,6 +279,126 @@
       }
     }
   }
+
+  .community {
+    z-index: 0;
+    width: 100%;
+    margin: 100px 0 80px 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+
+    .community-top-box {
+      width: 90%;
+      justify-content: space-between;
+
+      h2 {
+        width: 96%;
+        text-align: left;
+        font-family: $blackFont;
+      }
+
+      button {
+        padding: 2px 13px;
+        background-color: #3e3ec1;
+        color: white;
+        font-size: 30px;
+        border-radius: 5em;
+        font-family: $boldFont;
+      }
+    }
+  }
+
+  .community-add-box, .community-edit-box {
+    width: 90%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 1rem;
+    margin: 10px 0;
+    padding: 10px;
+    align-items: flex-start;
+
+    textarea {
+      width: 100%;
+      border-radius: 1rem;
+      padding: 16px;
+      border: none;
+      resize: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .preview-photo {
+      width: 300px;
+      margin: 20px 0;
+    }
+
+    .upload {
+      width: 100%;
+      justify-content: space-between;
+
+      .upload-img-btn {
+        cursor: pointer;
+        background-color: #3e3ec1;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 1rem;
+        font-size: 14px;
+      }
+
+      #photo {
+        display: none;
+      }
+    }
+
+    button {
+      background-color: #3e3ec1;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 1rem;
+    }
+  }
+
+  .community-box {
+    width: 90%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 1rem;
+    padding: 30px;
+    margin: 10px 0;
+    align-items: flex-start;
+
+    .row {
+      width: 100%;
+      justify-content: flex-start;
+
+      .userId, .createdAt {
+        color: dimgray;
+        font-family: $thinFont;
+      }
+
+      .createdAt {
+        margin: 0 20px;
+      }
+
+      .edit-btn, .delete-btn {
+        margin: 0 5px;
+
+        svg {
+          fill: gray;
+        }
+      }
+    }
+
+    .post-img {
+      width: 300px;
+      margin: 20px 0;
+    }
+
+    .contents {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
 }
 
 .input-form {
@@ -289,9 +409,8 @@
   }
 
   input {
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.12),
-      0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
     padding: 10px 20px;
     margin: 5px 0;
     border-radius: 5%;
@@ -299,9 +418,8 @@
 }
 
 .box {
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+  0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 100px 50px;
   width: 40%;
   @include flex-style(column);
@@ -378,7 +496,7 @@
     div {
       width: 90%;
       text-align: center;
-      padding: 100px 0;
+      padding: 50px 0;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       border-radius: 5%;
       cursor: pointer;
@@ -537,6 +655,7 @@
       .btns {
         width: 100%;
         text-align: right;
+
         svg {
           cursor: pointer;
           fill: gray;
@@ -616,12 +735,14 @@
               border-radius: 1em;
               cursor: pointer;
             }
+
             p {
               margin-left: 20px;
               color: gray;
               font-family: $thinFont;
             }
           }
+
           .preview-photo {
             width: 100%;
             margin-top: 10px;
@@ -662,6 +783,7 @@
             outline: none;
           }
         }
+
         .create-diary-btn {
           background-color: #5050bd;
           padding: 5px 15px;

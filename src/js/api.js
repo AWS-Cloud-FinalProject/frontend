@@ -71,6 +71,7 @@ const errorHandling = async error => {
 //~ 토큰 재발급
 const tokenReissue = async () => {
   const headers = {
+    'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
     'refresh-token': getCookie('rfToken'),
   }
@@ -88,7 +89,7 @@ const tokenReissue = async () => {
 
 export const signIn = async (id, pw) => {
   try {
-    return await axios.post(`/api/sign-in`, { id: id, password: pw })
+    return await axios.post(`/api/sign-in`, { id: id, password: pw }, header())
   } catch (error) {
     return await errorHandling(error)
   }
@@ -101,7 +102,7 @@ export const signUp = async (id, name, pw, email) => {
       name: name,
       password: pw,
       email: email
-    })
+    }, header())
   } catch (error) {
     return await errorHandling(error)
   }

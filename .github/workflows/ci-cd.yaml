@@ -174,9 +174,13 @@ jobs:
             port: 80
           EOF
 
-          # Commit and push changes to values.yaml
+      - name: Pull latest changes
+        run: git pull origin master
+
+      - name: Commit and push changes
+        run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add helm/frontend/values.yaml
-          git commit -m "Update frontend image to ${{ needs.version.outputs.new_tag }}"
+          git add helm/backend/values.yaml
+          git commit -m "Update backend image to ${{ needs.version.outputs.new_tag }}"
           git push

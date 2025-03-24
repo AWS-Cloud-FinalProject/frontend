@@ -169,26 +169,6 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Label EKS Nodes
-        run: |
-          echo "Getting nodes from front-node-group..."
-          NODES=$(kubectl get nodes -l eks.amazonaws.com/nodegroup=front-node-group -o jsonpath='{.items[*].metadata.name}')
-
-          if [ -z "$NODES" ]; then
-            echo "No nodes found in front-node-group"
-            exit 1
-          fi
-
-          echo "Found nodes: $NODES"
-          for NODE in $NODES; do
-            echo "Labeling node: $NODE"
-            kubectl label nodes $NODE role=front-node-group --overwrite=true
-          done
-
-          # Verify node labels
-          echo "Checking node labels:"
-          kubectl get nodes --show-labels | grep front-node-group
-
       - name: Set up Helm
         uses: azure/setup-helm@v3
         with:

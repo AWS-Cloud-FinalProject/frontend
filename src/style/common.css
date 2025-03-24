@@ -669,7 +669,7 @@
 .modal-bg .modal.diary-modal .create-diary .create-diary-contents:focus {
   outline: none;
 }
-.modal-bg .modal.diary-modal .create-diary .create-diary-btn {
+.modal-bg .modal.diary-modal .create-diary cpd .create-diary-btn {
   background-color: #5050bd;
   padding: 5px 15px;
   color: white;

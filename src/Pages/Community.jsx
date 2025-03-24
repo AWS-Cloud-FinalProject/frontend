@@ -104,17 +104,17 @@ const Community = () => {
   }
 
   const renderPosts = () => {
-    return posts?.map(({ user_id, contents, mine, photo, id }) => {
+    return posts?.map(({ id, contents, mine, photo, post_num }) => {
       return (
-        <div className='column community-box' key={id}>
+        <div className='column community-box' key={post_num}>
           <div className='row'>
-            <p className='userId'>@{user_id}</p>
+            <p className='userId'>@{id}</p>
             {mine ? (
               <>
                 <button
                   className='edit-btn'
                   onClick={() => {
-                    setEditingPost(id)
+                    setEditingPost(post_num)
                     setPost({ photo: photo, contents: contents })
                     setMode('edit')
                   }}
@@ -129,7 +129,7 @@ const Community = () => {
               <></>
             )}
           </div>
-          {editingPost === id && mode === 'edit' ? (
+          {editingPost === post_num && mode === 'edit' ? (
             <div className='column community-edit-box'>
               <textarea
                 value={post?.contents}
@@ -138,7 +138,7 @@ const Community = () => {
               {uploadedPhoto || post?.photo ? (
                 <img
                   src={uploadedPhoto || post?.photo}
-                  alt={`커뮤니티 이미지 ${id}`}
+                  alt={`커뮤니티 이미지 ${post_num}`}
                   className='preview-photo'
                 />
               ) : (
@@ -154,7 +154,7 @@ const Community = () => {
                   accept='image/*'
                   onChange={e => changePostData(e, 'photo')}
                 />
-                <button onClick={() => updatePostFn(id)}>저장</button>
+                <button onClick={() => updatePostFn(post_num)}>저장</button>
               </div>
             </div>
           ) : (
@@ -162,7 +162,7 @@ const Community = () => {
               {photo && (
                 <img
                   src={photo}
-                  alt={`커뮤니티 이미지 ${id}`}
+                  alt={`커뮤니티 이미지 ${post_num}`}
                   className='post-img'
                 />
               )}

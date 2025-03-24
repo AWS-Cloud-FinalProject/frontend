@@ -1,8 +1,8 @@
 replicaCount: 3
 
 image:
-  repository: frontend
-  tag: ${LATEST_TAG}
+  repository: 688567288847.dkr.ecr.us-west-2.amazonaws.com/frontend
+  tag: v0.0.3
   pullPolicy: Always
 
 service:

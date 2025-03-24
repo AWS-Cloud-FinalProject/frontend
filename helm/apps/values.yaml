@@ -1,8 +1,0 @@
-repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-
-targetRevision: production
-
-frontend:
-  image:
-    repository: frontend
-    tag: ${LATEST_TAG}

@@ -49,7 +49,6 @@ jobs:
           name: nginx-config
           path: nginx.conf
 
-
   version:
     runs-on: ubuntu-latest
     outputs:
@@ -169,24 +168,12 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: 'latest'
-
-      - name: Deploy Applications
+      - name: Push updated Helm values.yaml to Git
         run: |
-          # Create values override file for apps chart
-          cat > helm/apps/values.yaml << EOF
-          repoURL: https://github.com/AWS-Cloud-FinalProject/frontend.git
-          targetRevision: production
-          frontend:
-            image:
-              repository: ${{ secrets.ECR_REPOSITORY_URI }}/frontend
-              tag: ${{ needs.version.outputs.new_tag }}
-          EOF
+          # Ensure the Helm chart directory exists
+          mkdir -p helm/frontend
 
-          # Create values file for frontend chart
+          # Create or update values.yaml for frontend chart
           cat > helm/frontend/values.yaml << EOF
           replicaCount: 3
 
@@ -200,16 +187,9 @@ jobs:
             port: 80
           EOF
 
-          # Debug: Show the generated values files
-          echo "Generated helm/apps/values.yaml:"
-          cat helm/apps/values.yaml
-          echo "Generated helm/frontend/values.yaml:"
-          cat helm/frontend/values.yaml
-
-          # Apply the apps chart using Helm with debug output
-          helm upgrade --install front-apps helm/apps -n argocd --create-namespace --wait --debug
-   
-      - name: Cleanup old ReplicaSets
-        run: |
-          # Get all old ReplicaSets except the latest one and delete them
-          kubectl get rs --sort-by=.metadata.creationTimestamp -l app=frontend -o name | head -n -1 | xargs -r kubectl delete
+          # Commit and push changes to values.yaml
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add helm/frontend/values.yaml
+          git commit -m "Update frontend image to ${{ needs.version.outputs.new_tag }}"
+          git push

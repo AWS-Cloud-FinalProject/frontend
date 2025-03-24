@@ -20,7 +20,7 @@ spec:
           repository: {{ .Values.frontend.image.repository }}
           tag: {{ .Values.frontend.image.tag }}
         service:
-          type: LoadBalancer
+          type: ClusterIP
           port: 80
   destination:
     server: https://kubernetes.default.svc

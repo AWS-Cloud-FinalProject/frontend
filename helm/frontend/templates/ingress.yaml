@@ -14,6 +14,9 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-port: "80"
 spec:
   ingressClassName: alb
+  tls:
+    - hosts:
+        - wiary.site
   rules:
     - host: wiary.site
       http:
@@ -25,6 +28,3 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - wiary.site

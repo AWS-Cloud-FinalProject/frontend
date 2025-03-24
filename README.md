@@ -5,11 +5,6 @@
  ┃ ┗ 📂workflows
  ┃ ┃ ┗ 📜ci-cd.yaml
  ┣ 📂helm
- ┃ ┣ 📂apps
- ┃ ┃ ┣ 📂templates
- ┃ ┃ ┃ ┗ 📜frontend-application.yaml
- ┃ ┃ ┣ 📜Chart.yaml
- ┃ ┃ ┗ 📜values.yaml
  ┃ ┗ 📂frontend
  ┃ ┃ ┣ 📂templates
  ┃ ┃ ┃ ┣ 📜deployment.yaml
@@ -65,7 +60,7 @@
 1. GitHub에 코드를 Push
 2. `.github/workflows/ci-cd.yaml` 이 실행 되면서 GitHub Actions 실행
 3. GitHub Actions에서 AWS ECR로 이미지 푸시
-4. AWS ECR에 이미지가 푸시된 것을 ArgoCD에서 감지 후 푸시된 이미지로 EKS에 배포
+4. values.yaml 파일 변동된 것 ArgoCD에서 감지 후 푸시된 이미지로 EKS에 배포
 
 ## 사용된 AWS 서비스
 * AWS IAM

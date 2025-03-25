@@ -79,6 +79,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
           typeof result === 'object' &&
           result?.data?.message === 'Diary entry added successfully'
         ) {
+          alert('일기가 등록되었습니다.')
           setModal(false)
         }
       } else {
@@ -89,6 +90,7 @@ const DiaryModal = ({ setModal, selectedDate }) => {
           typeof result == 'object' &&
           result?.data?.message === 'Diary entry updated successfully'
         ) {
+          alert('일기가 수정되었습니다.')
           setModal(false)
         }
       }

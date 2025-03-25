@@ -20,12 +20,15 @@ const SignUp = () => {
     else if (checkPw === '') return alert('비밀번호 확인을 입력해 주세요.')
     else {
       if (pw !== checkPw) return alert('비밀번호를 정확히 입력해 주세요.')
+      else if (pw.length < 8 && checkPw.length < 8)
+        return alert('비밀번호가 너무 짧습니다. 8자 이상으로 입력해 주세요.')
       else {
         const result = await signUp(id, name, pw, email)
         if (
           typeof result === 'object' &&
           result?.data?.message === 'User created successfully'
         ) {
+          alert('회원가입이 완료되었습니다.')
           navigate('/')
         }
       }

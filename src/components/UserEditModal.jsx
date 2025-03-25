@@ -26,7 +26,7 @@ const UserEditModal = ({ setModal }) => {
       const result = await editPw(currentPw, newPw)
       if (
         typeof result === 'object' &&
-        result?.data?.message === 'User password updated successfully'
+        result?.data?.message === 'Password updated successfully'
       ) {
         alert('비밀번호가 변경되었습니다.')
         return setModal(false)

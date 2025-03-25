@@ -59,6 +59,7 @@ const TodoBoard = () => {
       result?.data?.message === 'Todo Delete Success'
     ) {
       getTodoList()
+      alert('삭제되었습니다.')
     }
   }
 
@@ -101,6 +102,7 @@ const TodoBoard = () => {
       result?.data?.message === 'Todo updated successfully'
     ) {
       setEdit(false)
+      alert('수정되었습니다.')
       getTodoList()
     }
   }

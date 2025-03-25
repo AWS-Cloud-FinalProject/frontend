@@ -28,11 +28,15 @@ const errorHandling = async error => {
   const { status } = error?.response
   const { detail } = error?.response.data
   switch (status) {
+    case 400:
+      if (detail === 'Current password is incorrect')
+        return alert('비밀번호가 틀렸습니다.')
+      if (detail === 'User already exists')
+        return alert('이미 가입된 아이디입니다.')
+      break
     case 403:
       if (detail === 'LoginError')
         return alert('아이디 또는 비밀번호가 틀렸습니다.')
-      else if (detail === 'withDrawError')
-        return alert('비밀번호가 틀렸습니다.')
       else if (detail === 'PasswordError')
         return alert('기존 비밀번호가 틀렸습니다.')
       else if (detail === 'Refresh Token required')
@@ -64,12 +68,7 @@ const errorHandling = async error => {
         return alert('파일 업데이트 중 오류가 발생했습니다.')
       break
     case 500:
-      if (
-        detail.include('Database query error') ||
-        detail === 'Internal Server Error'
-      )
-        return alert('서버 에러')
-      break
+        return alert('서버 에러입니다. 잠시만 기다려 주세요.')
     default:
       return
   }

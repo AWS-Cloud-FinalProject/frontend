@@ -90,16 +90,20 @@ const Community = () => {
         photo: null,
       })
       getPosts()
+      alert('수정되었습니다.')
     }
   }
 
   const deletePostFn = async post_id => {
-    const result = await deletePost(post_id)
-    if (
-      typeof result === 'object' &&
-      result?.data?.message === 'Post deleted successfully'
-    ) {
-      getPosts()
+    if (window.confirm('삭제하시겠습니까?')) {
+      const result = await deletePost(post_id)
+      if (
+        typeof result === 'object' &&
+        result?.data?.message === 'Post deleted successfully'
+      ) {
+        alert('삭제되었습니다.')
+        getPosts()
+      }
     }
   }
 
@@ -121,7 +125,10 @@ const Community = () => {
                 >
                   <MdOutlineModeEdit size={20} />
                 </button>
-                <button className='delete-btn' onClick={() => deletePostFn(id)}>
+                <button
+                  className='delete-btn'
+                  onClick={() => deletePostFn(post_num)}
+                >
                   <FaRegTrashCan size={20} />
                 </button>
               </>
@@ -154,7 +161,9 @@ const Community = () => {
                   accept='image/*'
                   onChange={e => changePostData(e, 'photo')}
                 />
-                <button onClick={() => updatePostFn(post_num)}>저장</button>
+                <button onClick={() => updatePostFn(post_num)}>
+                  {mode === 'create' ? '저장' : '수정'}
+                </button>
               </div>
             </div>
           ) : (
